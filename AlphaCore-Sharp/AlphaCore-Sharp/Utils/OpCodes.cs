@@ -8,7 +8,7 @@ namespace AlphaCore_Sharp.Utils
 {
     internal class OpCodes
     {
-        public enum OpCode : int
+        public enum OpCode : ushort
         {
             CMSG_BOOTME = 0x0001,
             CMSG_DBLOOKUP = 0x0002,
