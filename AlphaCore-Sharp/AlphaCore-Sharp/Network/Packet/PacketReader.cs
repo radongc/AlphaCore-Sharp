@@ -6,7 +6,7 @@ namespace AlphaCore_Sharp.Network.Packet
 {
     internal class PacketReader : BinaryReader
     {
-        public OpCode OpCode { get; set; }
+        public OpCode Opcode { get; set; }
         public ushort Size { get; set; }
 
         public PacketReader(byte[] data, bool worldPacket = true) : base(new MemoryStream(data))
@@ -15,7 +15,7 @@ namespace AlphaCore_Sharp.Network.Packet
             if (worldPacket)
             {
                 Size = (ushort)((this.ReadUInt16() / 0x100) - 4);
-                OpCode = (OpCode)this.ReadUInt32();
+                Opcode = (OpCode)this.ReadUInt32();
             }
         }
 

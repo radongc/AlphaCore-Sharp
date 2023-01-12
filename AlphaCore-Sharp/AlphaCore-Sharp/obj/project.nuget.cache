@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8Yj2V6z+SQ84VuFJSJKkHeNgsFBUccDmR+7DnF8rhAYFwPFNJVFTQGM6jZa6MlLNhJuKRW6qnt4bcAcTWoSJuQ==",
+  "dgSpecHash": "YuEnmONWahcSteFlHJblmbSFDIVb4BMU/KtrTXQjbVx0ilZwTZM2/wYexf8CPtcSRNu2FYkKo0FIA7Z11Nximw==",
   "success": true,
   "projectFilePath": "C:\\repos\\AlphaCore-Sharp\\AlphaCore-Sharp\\AlphaCore-Sharp\\AlphaCore-Sharp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\peter\\.nuget\\packages\\sharpziplib\\1.4.1\\sharpziplib.1.4.1.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\runtime.win-x64.microsoft.dotnet.ilcompiler\\7.0.0\\runtime.win-x64.microsoft.dotnet.ilcompiler.7.0.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.0\\microsoft.aspnetcore.app.runtime.win-x64.7.0.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.0\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.0.nupkg.sha512",
