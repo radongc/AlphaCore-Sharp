@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Text;
-using static AlphaCore_Sharp.Utils.OpCodes;
+using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Network.Packet
 {

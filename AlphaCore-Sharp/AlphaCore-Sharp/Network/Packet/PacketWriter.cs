@@ -1,9 +1,8 @@
-﻿using AlphaCore_Sharp.Utils;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.IO;
 using System.Text;
 using System.Xml.Xsl;
-using static AlphaCore_Sharp.Utils.OpCodes;
+using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 /*
  * PacketWriter

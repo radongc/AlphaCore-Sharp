@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlphaCore_Sharp.Utils
+namespace AlphaCore_Sharp.Utils.Constants
 {
     internal class OpCodes
     {
