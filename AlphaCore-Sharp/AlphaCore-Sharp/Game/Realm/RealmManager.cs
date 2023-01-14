@@ -12,7 +12,6 @@ namespace AlphaCore_Sharp.Game.Realm
     // RealmManager
     // Based on Alpha-WoW's RealmManager class.
 
-    // TODO: Add comments explaining this class.
     internal class RealmManager
     {
         public static RealmSocket RealmSocketSession;
@@ -23,37 +22,46 @@ namespace AlphaCore_Sharp.Game.Realm
         {
             Logger.Info("Redirecting to World Server from Proxy Server...");
 
+            // Redirect client to world server by sending a packet with just the world server address on realm -> world proxy socket.
             PacketWriter proxyWriter = new PacketWriter();
             proxyWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.WORLD_PORT}";
 
+            // Send the packet and close the proxy connection.
             session.Send(proxyWriter, ProxySocket);
             ProxySocket.Close();
         }
 
         public void HandleRealmList(RealmManager session)
         {
+            // Create a new bare packet containing the realm ID (?), realm name, address, and population.
             PacketWriter realmWriter = new PacketWriter();
-            realmWriter += (byte)1; // Realm number?
+            realmWriter += (byte)1; // Realm ID?
             realmWriter += $"{Globals.Realm.REALM_NAME}"; // Realm name.
             realmWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
             realmWriter += (uint)4916; // TODO: Number of online players.
 
+            // Send this packet on the realmlist socket.
             session.Send(realmWriter, RealmSocket);
+
+            // Close realmlist connection as it is no longer needed.
             RealmSocket.Close();
         }
 
         public void ReceiveRealm()
         {
+            // Handle realmlist packets.
             HandleRealmList(this);
         }
 
         public void ReceiveProxy()
         {
+            // Handle realm -> world proxy connection.
             HandleProxyConnection(this);
         }
 
         public void Send(PacketWriter writer, Socket socket)
         {
+            // Get raw auth packet data and send it on socket.
             byte[] buffer = writer.ReadDataToSend(isAuthPacket: true);
 
             try

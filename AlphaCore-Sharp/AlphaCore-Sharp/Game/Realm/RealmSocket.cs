@@ -19,6 +19,7 @@ namespace AlphaCore_Sharp.Game.Realm
 
         public bool Start()
         {
+            // Start TCP Listeners for realmlist and realm -> world proxy.
             try
             {
                 _realmListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.REALM_PORT);
@@ -31,6 +32,7 @@ namespace AlphaCore_Sharp.Game.Realm
             }
             catch (Exception ex)
             {
+                // Abort server startup on error.
                 Logger.Error($"{ex.Message}\n");
 
                 return false;
@@ -39,24 +41,29 @@ namespace AlphaCore_Sharp.Game.Realm
 
         public void StartRealmThread()
         {
+            // Start a new thread that waits for realmlist connections.
             new Thread(AcceptRealmConnection).Start();
         }
 
         public void StartProxyThread()
         {
+            // Start a new thread that waits for realm (realm -> world) proxy connections.
             new Thread(AcceptProxyConnection).Start();
         }
 
         protected void AcceptRealmConnection()
         {
+            // Continuously accept realmlist connections.
             while (ListenRealmSocket)
             {
+                // If there is a pending connection, create a new realm manager and accept it.
                 Thread.Sleep(1);
                 if (_realmListener.Pending())
                 {
                     RealmManager realm = new RealmManager();
                     realm.RealmSocket = _realmListener.AcceptSocket();
 
+                    // Start a new thread and receive realmlist connections on the socket that was just opened.
                     Thread recvThread = new Thread(realm.ReceiveRealm);
                     recvThread.Start();
                 }
@@ -65,14 +72,17 @@ namespace AlphaCore_Sharp.Game.Realm
 
         protected void AcceptProxyConnection()
         {
+            // Continuously accept realm -> world proxy connections.
             while (ListenProxySocket)
             {
+                // If there is a pending connection, create a new realm manager and accept it.
                 Thread.Sleep(1);
                 if (_proxyListener.Pending())
                 {
                     RealmManager proxy = new RealmManager();
                     proxy.ProxySocket = _proxyListener.AcceptSocket();
 
+                    // Start a new thread and receive realm -> world proxy connections on socket that was just opened.
                     Thread recvThread = new Thread(proxy.ReceiveProxy);
                     recvThread.Start();
                 }
@@ -81,6 +91,7 @@ namespace AlphaCore_Sharp.Game.Realm
         
         public void Dispose()
         {
+            // Stop all packet/socket listening.
             ListenRealmSocket = false;
             ListenProxySocket = false;
             _realmListener.Stop();

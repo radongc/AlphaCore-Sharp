@@ -36,14 +36,17 @@ namespace AlphaCore_Sharp.Game.World
 
         protected void AcceptConnection()
         {
+            // Continuously accept world server socket connections.
             while (ListenWorldSocket)
             {
+                // If there is a pending connection, create a world manager (game session) and accept it.
                 Thread.Sleep(1);
                 if (_worldListener.Pending())
                 {
                     WorldManager world = new WorldManager();
                     world.Socket = _worldListener.AcceptSocket();
 
+                    // Start a new thread and begin main world packet receiving loop.
                     Thread recvThread = new Thread(world.Receive);
                     recvThread.Start();
                 }

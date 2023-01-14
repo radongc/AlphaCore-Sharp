@@ -28,10 +28,12 @@ namespace AlphaCore_Sharp
             WorldManager.WorldSocketSession = new WorldSocket();
             if (WorldManager.WorldSocketSession.Start() && RealmManager.RealmSocketSession.Start())
             {
+                // Open connections to realmlist, and then realm -> world proxy servers.
                 RealmManager.RealmSocketSession.StartRealmThread();
                 RealmManager.RealmSocketSession.StartProxyThread();
                 Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}");
 
+                // Open world server connections.
                 WorldManager.WorldSocketSession.StartConnectionThread();
                 Logger.Success($"World Server listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.WORLD_PORT}\n");
 
