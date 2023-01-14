@@ -24,13 +24,16 @@ namespace AlphaCore_Sharp.Game.World
 
         public void OnData()
         {
+            // Parse/serialize packet bytes.
             PacketReader pkt = new PacketReader(buffer);
 
+            // Check if we have defined this packet.
             if (Enum.IsDefined(typeof(OpCode), pkt.Opcode))
                 Logger.Debug($"Received OpCode {pkt.Opcode}, Length: {pkt.Size}\n");
             else
                 Logger.Debug($"Unknown data received: {pkt.Opcode}, Length: {pkt.Size}\n");
 
+            // Invoke the handler for this packet.
             PacketManager.Invoke(pkt, this, pkt.Opcode);
         }
 
@@ -55,6 +58,7 @@ namespace AlphaCore_Sharp.Game.World
                     buffer = new byte[Socket.Available];
                     Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
+                    // When packet received, start handling packets in OnData.
                     OnData();
                 }
             }
@@ -67,10 +71,12 @@ namespace AlphaCore_Sharp.Game.World
             if (packet == null)
                 return;
 
+            // Get raw packet bytes.
             byte[] buffer = packet.ReadDataToSend();
 
             try
             {
+                // Try to asynchronously send the raw packet bytes.
                 Socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(FinishSend), Socket);
 
                 if (!suppressLog)
@@ -82,6 +88,7 @@ namespace AlphaCore_Sharp.Game.World
             {
                 Logger.Error($"{ex.Message}\n");
 
+                // Close world socket if error caught.
                 CloseSocket();
             }
         }
@@ -95,6 +102,7 @@ namespace AlphaCore_Sharp.Game.World
 
         public void FinishSend(IAsyncResult result)
         {
+            // Finish asynchronous packet send on socket.
             Socket.EndSend(result);
         }
     }

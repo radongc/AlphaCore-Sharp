@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AlphaCore_Sharp.Game.World
 {
+    // TODO: Add comments explaining the full process of client connection here and in RealmSocket.
     internal class WorldSocket
     {
         public bool ListenWorldSocket = true;
