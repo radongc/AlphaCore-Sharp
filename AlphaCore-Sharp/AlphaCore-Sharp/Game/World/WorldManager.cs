@@ -22,32 +22,35 @@ namespace AlphaCore_Sharp.Game.World
 
         byte[] buffer = null;
 
-        public void OnData()
+        public bool OnData()
         {
-            // Parse/serialize packet bytes.
+            // Serialize packet bytes.
             PacketReader pkt = new PacketReader(buffer);
 
             // Check if we have defined this packet.
             if (Enum.IsDefined(typeof(OpCode), pkt.Opcode))
-                Logger.Debug($"Received OpCode {pkt.Opcode}, Length: {pkt.Size}\n");
+                Logger.Debug($"Received OpCode {pkt.Opcode}, Length: {pkt.Size}");
             else
-                Logger.Debug($"Unknown data received: {pkt.Opcode}, Length: {pkt.Size}\n");
+                Logger.Debug($"Unknown data received: {pkt.Opcode}, Length: {pkt.Size}");
 
             // Invoke the handler for this packet.
-            PacketManager.Invoke(pkt, this, pkt.Opcode);
+            bool handlerResult = PacketManager.Invoke(pkt, this, pkt.Opcode);
+
+            // Return result to Receive() loop (2nd object in Invoke() return value.)
+            return handlerResult;
         }
 
         public void Receive()
         {
-            // Send AUTH_CHALLENGE packet before anything else.
-            PacketWriter packet = new PacketWriter(OpCode.SMSG_AUTH_CHALLENGE);
-            packet += 0;
-            packet += 0;
-            packet += 0;
-            packet += 0;
-            packet += 0;
-            packet += 0;
-            this.Send(packet);
+            // Send AUTH_CHALLENGE packet before anything else. SMSG_AUTH_CHALLENGE contains 6 zeros.
+            PacketWriter challengePkt = new PacketWriter(OpCode.SMSG_AUTH_CHALLENGE);
+            challengePkt += 0;
+            challengePkt += 0;
+            challengePkt += 0;
+            challengePkt += 0;
+            challengePkt += 0;
+            challengePkt += 0;
+            Send(challengePkt);
 
             // Wait for subsequent packets sent by the client.
             while(WorldSession.ListenWorldSocket)
@@ -58,8 +61,9 @@ namespace AlphaCore_Sharp.Game.World
                     buffer = new byte[Socket.Available];
                     Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
-                    // When packet received, start handling packets in OnData.
-                    OnData();
+                    // When packet received, handle packets via OnData. Break receive loop if handler returns bad result.
+                    if (!OnData())
+                        break;
                 }
             }
 
@@ -81,7 +85,7 @@ namespace AlphaCore_Sharp.Game.World
 
                 if (!suppressLog)
                 {
-                    Logger.Debug($"Sending {packet.Opcode}\n");
+                    Logger.Debug($"Sending {packet.Opcode}");
                 }
             }
             catch (Exception ex)
@@ -97,7 +101,7 @@ namespace AlphaCore_Sharp.Game.World
         {
             // TODO: Log character out.
 
-            CloseSocket();
+            Socket.Close();
         }
 
         public void FinishSend(IAsyncResult result)

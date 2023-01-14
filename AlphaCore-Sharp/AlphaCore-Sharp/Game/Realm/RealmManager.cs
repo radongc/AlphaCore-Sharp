@@ -21,24 +21,22 @@ namespace AlphaCore_Sharp.Game.Realm
 
         public void HandleProxyConnection(RealmManager session)
         {
-            Logger.Info("Begin redirection to World Server.");
+            Logger.Info("Redirecting to World Server from Proxy Server...");
 
             PacketWriter proxyWriter = new PacketWriter();
-            proxyWriter += $"{Globals.SERVER_IP}:{Globals.WORLD_PORT}";
+            proxyWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.WORLD_PORT}";
 
             session.Send(proxyWriter, ProxySocket);
             ProxySocket.Close();
-
-            Logger.Info("Successfully redirected to World Server.\n");
         }
 
         public void HandleRealmList(RealmManager session)
         {
             PacketWriter realmWriter = new PacketWriter();
             realmWriter += (byte)1;
-            realmWriter += $"{Globals.REALM_NAME}";
-            realmWriter += $"{Globals.SERVER_IP}:{Globals.PROXY_PORT}";
-            realmWriter += (uint)100; // TODO: Number of online players.
+            realmWriter += $"{Globals.Realm.REALM_NAME}";
+            realmWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}";
+            realmWriter += (uint)4916; // TODO: Number of online players.
 
             session.Send(realmWriter, RealmSocket);
             RealmSocket.Close();

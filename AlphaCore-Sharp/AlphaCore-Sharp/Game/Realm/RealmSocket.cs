@@ -21,10 +21,10 @@ namespace AlphaCore_Sharp.Game.Realm
         {
             try
             {
-                _realmListener = new TcpListener(IPAddress.Parse(Globals.SERVER_IP), Globals.REALM_PORT);
+                _realmListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.REALM_PORT);
                 _realmListener.Start();
 
-                _proxyListener = new TcpListener(IPAddress.Parse(Globals.SERVER_IP), Globals.PROXY_PORT);
+                _proxyListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.PROXY_PORT);
                 _proxyListener.Start();
 
                 return true;

@@ -19,7 +19,7 @@ namespace AlphaCore_Sharp.Game.World
         {
             try
             {
-                _worldListener = new TcpListener(IPAddress.Parse(Globals.SERVER_IP), Globals.WORLD_PORT);
+                _worldListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.WORLD_PORT);
                 _worldListener.Start();
 
                 return true;

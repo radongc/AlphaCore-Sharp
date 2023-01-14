@@ -20,7 +20,7 @@ namespace AlphaCore_Sharp
             Logger.Message("AlphaCore#");
             Logger.Message("WoW 0.5.3 (3368) - Alpha Emulator");
             Logger.Message("Written in Native C# with NativeAOT.");
-            Logger.Message("Based on The-Alpha-Project/alpha-core (Python) by Grender & others.\n");
+            Logger.Message("Based on The-Alpha-Project/alpha-core (Python) by Grender & others and barncastle/Alpha-WoW.\n");
 
             // TODO: Add detailed comments explaning step by step the realm, proxy, and world socket connection process.
             // TODO: Review boilerplate socket code and make recommended changes (to start off, we are nearly 1:1 with Alpha-WoW's base server code.)
@@ -30,12 +30,10 @@ namespace AlphaCore_Sharp
             {
                 RealmManager.RealmSession.StartRealmThread();
                 RealmManager.RealmSession.StartProxyThread();
-                Logger.Info($"Realm Proxy listening on {Globals.SERVER_IP} port {Globals.REALM_PORT}/{Globals.PROXY_PORT}");
-                Logger.Info("Realm Proxy successfully started!");
+                Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}");
 
                 WorldManager.WorldSession.StartConnectionThread();
-                Logger.Info($"World Server listening on {Globals.SERVER_IP} port {Globals.WORLD_PORT}");
-                Logger.Info("World Server successfully started!\n");
+                Logger.Success($"World Server listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.WORLD_PORT}\n");
 
                 // Setup packet handlers.
                 HandlerDefinitions.InitializePacketHandlers();
@@ -47,7 +45,7 @@ namespace AlphaCore_Sharp
 
             // Free memory.
             GC.Collect();
-            Logger.Info($"Total memory usage: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB.");
+            Logger.Info($"Total memory usage: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB.\n");
 
             // TODO: Initialize commands.
         }

@@ -21,7 +21,7 @@ namespace AlphaCore_Sharp.Utils
     internal static class Logger
     {
         // Bitwise AND between logType and logging mask; if logType is included in the mask, it will return the value of logType. If not, it returns 0.
-        private static bool ShouldLog(DebugLevel logType) => (Globals.LOGGING_MASK & (int)logType) == (int)logType;
+        private static bool ShouldLog(DebugLevel logType) => (Globals.Logging.LOGGING_MASK & (int)logType) == (int)logType;
 
         public static void Debug(string message)
         {

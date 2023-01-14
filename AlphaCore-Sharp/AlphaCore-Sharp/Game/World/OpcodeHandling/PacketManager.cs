@@ -13,8 +13,8 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
     {
         // Dictionary of all OpCodes and their Handler methods.
         public static Dictionary<OpCode, HandlerDelegate> OpcodeHandlers = new Dictionary<OpCode, HandlerDelegate>();
-        // Delegate definition that will call Handler method when invoked.
-        public delegate void HandlerDelegate(ref PacketReader opcode, ref WorldManager worldManager);
+        // Delegate function that will call Handler method when invoked.
+        public delegate bool HandlerDelegate(ref PacketReader opcode, ref WorldManager worldManager);
 
         // Store OpCode and Handler method.
         public static void StoreOpCode(OpCode opcode, HandlerDelegate handler)
@@ -22,17 +22,21 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
             OpcodeHandlers[opcode] = handler;
         }
 
-        // Call (invoke) the Handler method.
+        // Invoke the Handler method. Returns a boolean, which may be false if the handler method returned a bad result, or if an opcode is unhandled.
         public static bool Invoke(PacketReader reader, WorldManager worldManager, OpCode opcode)
         {
             if (OpcodeHandlers.ContainsKey(opcode))
             {
-                OpcodeHandlers[opcode].Invoke(ref reader, ref worldManager);
-                return true;
+                Logger.Debug($"Handling {opcode}");
+                bool handleResult = OpcodeHandlers[opcode].Invoke(ref reader, ref worldManager);
+                return handleResult;
             }
             else
             {
-                Logger.Error($"Unhandled Opcode: {opcode} - {(byte)opcode}");
+                // Return false and kill socket connection if OpCode unhandled (for now).
+                byte[] opcodeArray = {(byte)opcode};
+
+                Logger.Error($"Unhandled Opcode: {opcode} - ID 0x{Convert.ToHexString(opcodeArray)}, {(byte)opcode}");
                 return false;
             }
         }
