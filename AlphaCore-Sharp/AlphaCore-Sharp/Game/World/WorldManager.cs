@@ -67,6 +67,7 @@ namespace AlphaCore_Sharp.Game.World
                 }
             }
 
+            // Close socket connection if packet loop breaks.
             CloseSocket();
         }
 
