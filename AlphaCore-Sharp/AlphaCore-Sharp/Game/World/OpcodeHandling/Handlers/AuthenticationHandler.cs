@@ -54,10 +54,11 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                     // If password does not match account, reject login attempt.
                     authResult = AuthCode.AUTH_INCORRECT_PASSWORD;
                 else
-                    // If no issues encountered, accept login attempt. result = true keeps the socket connection open.
+                    // If no issues encountered, accept login attempt.
                     authResult = AuthCode.AUTH_OK;
             }
 
+            // result = true keeps the socket connection open. If handlers do not return true, the client connection is closed.
             if (authResult == AuthCode.AUTH_OK)
                 result = true;
 
