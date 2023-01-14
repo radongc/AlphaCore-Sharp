@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlphaCore_Sharp.Game
 {
-    // Temporary config class; all of the constant values should be moved to a non-hardcoded config file later.
+    // TODO: Move all of this to a config file outside the core code base.
     internal class Globals
     {
         public const string SERVER_IP = "127.0.0.1";
