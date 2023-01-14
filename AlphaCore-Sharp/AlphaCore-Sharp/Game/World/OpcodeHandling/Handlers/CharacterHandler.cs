@@ -67,13 +67,13 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             // Send mock gear data.
             for (byte i = 0; i < 22; i++)
             {
-                if (i == 1 || i == 2)
+                if (i == 0 || i == 2)
                     continue;
 
                 // Gear display ID.
-                charPacket += (uint)0;
+                charPacket += (uint)1965;
                 // Gear inventory type.
-                charPacket += (byte)0;
+                charPacket += (byte)i;
             }
 
             // Send character packet to client and return success.
