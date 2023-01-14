@@ -1,46 +1,101 @@
-﻿using AlphaCore_Sharp.Utils;
+﻿using AlphaCore_Sharp.Game.World.OpcodeHandling;
+using AlphaCore_Sharp.Network.Packet;
+using AlphaCore_Sharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Game.World
 {
     internal class WorldManager
     {
-        public static void Start()
+        // TODO: Store Account and Character data.
+        public ulong Id;
+        public Socket Socket;
+        public static WorldSocket WorldSession;
+
+        byte[] buffer = null;
+
+        public void OnData()
         {
-            IPAddress ipAddress = IPAddress.Parse(Globals.SERVER_IP);
-            IPEndPoint localEndpoint = new IPEndPoint(ipAddress, Globals.WORLD_PORT);
+            PacketReader pkt = new PacketReader(buffer);
 
-            Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            if (Enum.IsDefined(typeof(OpCode), pkt.Opcode))
+                Logger.Debug($"Received OpCode {pkt.Opcode}, Length: {pkt.Size}\n");
+            else
+                Logger.Debug($"Unknown data received: {pkt.Opcode}, Length: {pkt.Size}\n");
 
-            serverSocket.Bind(localEndpoint);
-            serverSocket.Listen();
+            PacketManager.Invoke(pkt, this, pkt.Opcode);
+        }
 
-            Logger.Success($"World server started, listening on {localEndpoint.Address}:{localEndpoint.Port}");
-            Logger.Info("Info test");
-            Logger.Anticheat("AC test");
-            Logger.Warning("Warning test");
-            Logger.Error("Error test");
-            Logger.Debug("Debug test");
+        public void Receive()
+        {
+            // Send AUTH_CHALLENGE packet before anything else.
+            PacketWriter packet = new PacketWriter(OpCode.SMSG_AUTH_CHALLENGE);
+            packet += 0;
+            packet += 0;
+            packet += 0;
+            packet += 0;
+            packet += 0;
+            packet += 0;
+            this.Send(packet);
 
-            while (true)
+            // Wait for subsequent packets sent by the client.
+            while(WorldSession.ListenWorldSocket)
             {
-                try
+                Thread.Sleep(1);
+                if (Socket.Connected && Socket.Available > 0)
                 {
-                    Socket clientSocket = serverSocket.Accept();
-                    // Session handling goes here
-                }
-                catch
-                {
-                    break;
+                    buffer = new byte[Socket.Available];
+                    Socket.Receive(buffer, buffer.Length, SocketFlags.None);
+
+                    OnData();
                 }
             }
+
+            CloseSocket();
+        }
+
+        public void Send(PacketWriter packet, bool suppressLog = false)
+        {
+            if (packet == null)
+                return;
+
+            byte[] buffer = packet.ReadDataToSend();
+
+            try
+            {
+                Socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(FinishSend), Socket);
+
+                if (!suppressLog)
+                {
+                    Logger.Debug($"Sending {packet.Opcode}\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"{ex.Message}\n");
+
+                CloseSocket();
+            }
+        }
+
+        public void CloseSocket()
+        {
+            // TODO: Log character out.
+
+            CloseSocket();
+        }
+
+        public void FinishSend(IAsyncResult result)
+        {
+            Socket.EndSend(result);
         }
     }
 }

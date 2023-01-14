@@ -75,5 +75,10 @@ namespace AlphaCore_Sharp.Utils
                 Console.WriteLine($"[SUCCESS] [{date}] {message}");
             }
         }
+
+        public static void Message(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
