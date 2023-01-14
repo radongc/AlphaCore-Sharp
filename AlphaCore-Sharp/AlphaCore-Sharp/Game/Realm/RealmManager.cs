@@ -36,7 +36,7 @@ namespace AlphaCore_Sharp.Game.Realm
         {
             PacketWriter realmWriter = new PacketWriter();
             realmWriter += (byte)1;
-            realmWriter += "|cFF00FFFFAlphaCore-Sharp Development";
+            realmWriter += $"{Globals.REALM_NAME}";
             realmWriter += $"{Globals.SERVER_IP}:{Globals.PROXY_PORT}";
             realmWriter += (uint)100; // TODO: Number of online players.
 

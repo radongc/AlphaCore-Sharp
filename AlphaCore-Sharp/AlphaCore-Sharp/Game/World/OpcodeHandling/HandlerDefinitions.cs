@@ -1,10 +1,12 @@
-﻿using AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
+using static AlphaCore_Sharp.Game.World.OpcodeHandling.PacketManager;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling
 {
@@ -13,7 +15,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
     {
         public static void InitializePacketHandlers()
         {
-            PacketManager.Define(OpCode.CMSG_AUTH_SESSION, AuthHandler.HandleAuthSession);
+            StoreOpCode(OpCode.CMSG_AUTH_SESSION, AuthenticationHandler.HandleAuthSession);
         }
     }
 }

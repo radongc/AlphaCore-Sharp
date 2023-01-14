@@ -16,8 +16,8 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
         // Delegate definition that will call Handler method when invoked.
         public delegate void HandlerDelegate(ref PacketReader opcode, ref WorldManager worldManager);
 
-        // Define OpCode with Handler method.
-        public static void Define(OpCode opcode, HandlerDelegate handler)
+        // Store OpCode and Handler method.
+        public static void StoreOpCode(OpCode opcode, HandlerDelegate handler)
         {
             OpcodeHandlers[opcode] = handler;
         }

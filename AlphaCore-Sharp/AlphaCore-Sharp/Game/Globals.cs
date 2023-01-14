@@ -13,6 +13,7 @@ namespace AlphaCore_Sharp.Game
         public const int REALM_PORT = 9100;
         public const int PROXY_PORT = 9090;
         public const int WORLD_PORT = 8100;
+        public const string REALM_NAME = "|cFF00FFFFAlphaCore Sharp";
 
         /*  
             Add mask values together to customize which logs to show; ex. to only show SUCCESS (0x01) + INFO (0x02), mask should be 0x03. 
