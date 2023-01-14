@@ -22,7 +22,7 @@ namespace AlphaCore_Sharp.Game.World
 
         byte[] buffer = null;
 
-        public bool OnData()
+        public bool OnPacketReceived()
         {
             // Serialize packet bytes.
             PacketReader pkt = new PacketReader(buffer);
@@ -36,7 +36,7 @@ namespace AlphaCore_Sharp.Game.World
             // Invoke the handler for this packet.
             bool handlerResult = PacketManager.Invoke(pkt, this, pkt.Opcode);
 
-            // Return result to Receive() loop (2nd object in Invoke() return value.)
+            // Return result to Receive() loop.
             return handlerResult;
         }
 
@@ -62,7 +62,7 @@ namespace AlphaCore_Sharp.Game.World
                     Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
                     // When packet received, handle packets via OnData. Break receive loop if handler returns bad result.
-                    if (!OnData())
+                    if (!OnPacketReceived())
                         break;
                 }
             }
