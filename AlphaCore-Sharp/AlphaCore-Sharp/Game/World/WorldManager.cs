@@ -61,7 +61,7 @@ namespace AlphaCore_Sharp.Game.World
                     buffer = new byte[Socket.Available];
                     Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
-                    // When packet received, handle packets via OnData. Break receive loop if handler returns bad result.
+                    // When packet received, handle packets via OnPacketReceived. Break receive loop if handler returns bad result.
                     if (!OnPacketReceived())
                         break;
                 }
