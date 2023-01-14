@@ -15,7 +15,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
     internal class AuthenticationHandler
     {
         // TODO: Implement account login (after ORM implemented with models and data loading.)
-        public static bool HandleAuthSession(ref PacketReader packet, ref WorldManager worldManager)
+        public static bool HandleAuthSession(ref PacketReader packet, ref WorldManager worldSession)
         {
             bool result = false;
 
@@ -62,10 +62,11 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             if (authResult == AuthCode.AUTH_OK)
                 result = true;
 
+            // Write result to the response packet.
             responsePacket += (byte)authResult;
 
             // Send response packet to client and return the result to WorldManager.OnData().
-            worldManager.Send(responsePacket);
+            worldSession.Send(responsePacket);
             return result;
         }
     }

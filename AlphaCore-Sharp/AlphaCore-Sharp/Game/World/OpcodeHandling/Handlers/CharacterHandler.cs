@@ -11,7 +11,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
     internal class CharacterHandler
     {
         // TODO: Rewrite this to actually fetch real characters instead of sending mock data.
-        public static bool HandleCharEnum(ref PacketReader packet, ref WorldManager worldManager)
+        public static bool HandleCharEnum(ref PacketReader packet, ref WorldManager worldSession)
         {
             bool result = false;
 
@@ -77,7 +77,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             }
 
             // Send character packet to client and return success.
-            worldManager.Send(charPacket);
+            worldSession.Send(charPacket);
             result = true;
             return result;
         }

@@ -15,7 +15,7 @@ namespace AlphaCore_Sharp.Game.Realm
     // TODO: Add comments explaining this class.
     internal class RealmManager
     {
-        public static RealmSocket RealmSession;
+        public static RealmSocket RealmSocketSession;
         public Socket RealmSocket;
         public Socket ProxySocket;
 
@@ -33,9 +33,9 @@ namespace AlphaCore_Sharp.Game.Realm
         public void HandleRealmList(RealmManager session)
         {
             PacketWriter realmWriter = new PacketWriter();
-            realmWriter += (byte)1;
-            realmWriter += $"{Globals.Realm.REALM_NAME}";
-            realmWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}";
+            realmWriter += (byte)1; // Realm number?
+            realmWriter += $"{Globals.Realm.REALM_NAME}"; // Realm name.
+            realmWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
             realmWriter += (uint)4916; // TODO: Number of online players.
 
             session.Send(realmWriter, RealmSocket);

@@ -14,7 +14,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
         // Dictionary of all OpCodes and their Handler methods.
         public static Dictionary<OpCode, HandlerDelegate> OpcodeHandlers = new Dictionary<OpCode, HandlerDelegate>();
         // Delegate function that will call Handler method when invoked.
-        public delegate bool HandlerDelegate(ref PacketReader opcode, ref WorldManager worldManager);
+        public delegate bool HandlerDelegate(ref PacketReader opcode, ref WorldManager worldSession);
 
         // Store OpCode and Handler method.
         public static void StoreOpCode(OpCode opcode, HandlerDelegate handler)
@@ -23,12 +23,12 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
         }
 
         // Invoke the Handler method. Returns a boolean, which may be false if the handler method returned a bad result, or if an opcode is unhandled.
-        public static bool Invoke(PacketReader reader, WorldManager worldManager, OpCode opcode)
+        public static bool Invoke(PacketReader reader, WorldManager worldSession, OpCode opcode)
         {
             if (OpcodeHandlers.ContainsKey(opcode))
             {
                 Logger.Debug($"Handling {opcode}");
-                bool handleResult = OpcodeHandlers[opcode].Invoke(ref reader, ref worldManager);
+                bool handleResult = OpcodeHandlers[opcode].Invoke(ref reader, ref worldSession);
                 return handleResult;
             }
             else

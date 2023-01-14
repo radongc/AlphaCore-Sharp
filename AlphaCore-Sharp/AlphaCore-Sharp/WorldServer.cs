@@ -20,19 +20,19 @@ namespace AlphaCore_Sharp
             Logger.Message("AlphaCore#");
             Logger.Message("WoW 0.5.3 (3368) - Alpha Emulator");
             Logger.Message("Written in Native C# with NativeAOT.");
-            Logger.Message("Based on The-Alpha-Project/alpha-core (Python) by Grender & others and barncastle/Alpha-WoW.\n");
+            Logger.Message("Based on The-Alpha-Project/alpha-core (Python) and barncastle/Alpha-WoW (.NET IL).\n");
 
             // TODO: Add detailed comments explaning step by step the realm, proxy, and world socket connection process.
             // TODO: Review boilerplate socket code and make recommended changes (to start off, we are nearly 1:1 with Alpha-WoW's base server code.)
-            RealmManager.RealmSession = new RealmSocket();
-            WorldManager.WorldSession = new WorldSocket();
-            if (WorldManager.WorldSession.Start() && RealmManager.RealmSession.Start())
+            RealmManager.RealmSocketSession = new RealmSocket();
+            WorldManager.WorldSocketSession = new WorldSocket();
+            if (WorldManager.WorldSocketSession.Start() && RealmManager.RealmSocketSession.Start())
             {
-                RealmManager.RealmSession.StartRealmThread();
-                RealmManager.RealmSession.StartProxyThread();
+                RealmManager.RealmSocketSession.StartRealmThread();
+                RealmManager.RealmSocketSession.StartProxyThread();
                 Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}");
 
-                WorldManager.WorldSession.StartConnectionThread();
+                WorldManager.WorldSocketSession.StartConnectionThread();
                 Logger.Success($"World Server listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.WORLD_PORT}\n");
 
                 // Setup packet handlers.

@@ -18,7 +18,7 @@ namespace AlphaCore_Sharp.Game.World
         // TODO: Store Account and Character data.
         public ulong Id;
         public Socket Socket;
-        public static WorldSocket WorldSession;
+        public static WorldSocket WorldSocketSession;
 
         byte[] buffer = null;
 
@@ -53,7 +53,7 @@ namespace AlphaCore_Sharp.Game.World
             Send(challengePkt);
 
             // Wait for subsequent packets sent by the client.
-            while(WorldSession.ListenWorldSocket)
+            while(WorldSocketSession.ListenWorldSocket)
             {
                 Thread.Sleep(1);
                 if (Socket.Connected && Socket.Available > 0)
