@@ -15,7 +15,11 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
     {
         public static void InitializePacketHandlers()
         {
+            // Authentication OpCodes.
             StoreOpCode(OpCode.CMSG_AUTH_SESSION, AuthenticationHandler.HandleAuthSession);
+
+            // Character OpCodes.
+            StoreOpCode(OpCode.CMSG_CHAR_ENUM, CharacterHandler.HandleCharEnum);
         }
     }
 }
