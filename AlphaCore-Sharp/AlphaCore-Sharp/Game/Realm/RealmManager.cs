@@ -11,6 +11,8 @@ namespace AlphaCore_Sharp.Game.Realm
 {
     // RealmManager
     // Based on Alpha-WoW's RealmManager class.
+
+    // TODO: Add comments explaining this class.
     internal class RealmManager
     {
         public static RealmSocket RealmSession;

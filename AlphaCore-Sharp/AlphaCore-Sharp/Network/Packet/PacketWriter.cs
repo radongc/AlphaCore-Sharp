@@ -10,6 +10,7 @@ using static AlphaCore_Sharp.Utils.Constants.OpCodes;
  * Can use 'Write' methods to serialize, or use '+=' operators for convenience.
  */
 
+// TODO: Add comments explaining this class.
 namespace AlphaCore_Sharp.Network.Packet
 {
     internal class PacketWriter : BinaryWriter

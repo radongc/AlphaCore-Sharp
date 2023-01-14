@@ -4,6 +4,7 @@ using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Network.Packet
 {
+    // TODO: Add comments explaining this class.
     internal class PacketReader : BinaryReader
     {
         public OpCode Opcode { get; set; }

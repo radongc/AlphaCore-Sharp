@@ -54,6 +54,7 @@ namespace AlphaCore_Sharp
     }
 }
 
+// TODO: Add comments explaining the full process of client connection in RealmSocket, WorldSocket, RealmManager, and WorldManager.
 // TODO: Choose a good ORM (or write your own, not recommended) and start adding database models.
 // TODO: Start loading data from database after ORM is chosen and implemented.
 // TODO: Make sure account auth process is working properly and start writing opcode handlers.

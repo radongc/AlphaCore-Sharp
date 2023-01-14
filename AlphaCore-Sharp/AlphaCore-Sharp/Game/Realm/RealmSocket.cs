@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AlphaCore_Sharp.Game.Realm
 {
+    // TODO: Add comments explaining this class.
     internal class RealmSocket
     {
         public bool ListenRealmSocket = true;
