@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Game\World\Managers\" />
-    <Folder Include="Game\World\OpcodeHandling\Handlers\" />
   </ItemGroup>
 
 </Project>

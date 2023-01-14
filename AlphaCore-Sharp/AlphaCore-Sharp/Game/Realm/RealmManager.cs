@@ -19,7 +19,7 @@ namespace AlphaCore_Sharp.Game.Realm
 
         public void HandleProxyConnection(RealmManager session)
         {
-            Logger.Info("\nBegin redirection to World Server.");
+            Logger.Info("Begin redirection to World Server.");
 
             PacketWriter proxyWriter = new PacketWriter();
             proxyWriter += $"{Globals.SERVER_IP}:{Globals.WORLD_PORT}";
