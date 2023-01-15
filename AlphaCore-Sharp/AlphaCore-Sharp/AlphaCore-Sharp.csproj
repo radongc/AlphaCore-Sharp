@@ -15,4 +15,8 @@
     <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Game\World\Managers\Objects\" />
+  </ItemGroup>
+
 </Project>

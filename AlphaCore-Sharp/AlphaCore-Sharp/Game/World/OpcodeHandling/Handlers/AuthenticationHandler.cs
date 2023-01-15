@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 using static AlphaCore_Sharp.Utils.Constants.AuthCodes;
+using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
 using AlphaCore_Sharp.Utils.Constants;
-using AlphaCore_Sharp.Game.World.Managers.Objects;
 using AlphaCore_Sharp.Database.Realm;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
@@ -42,29 +42,20 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                 string accountName = nameAndPass[0];
                 string accountPass = nameAndPass[1];
 
-                RealmModels model = new RealmModels();
-                Account account = model.Accounts.Where(a => a.Name == accountName).FirstOrDefault();
-                /*                Account account = new Account();
-                                account.Name = Globals.Settings.TEMP_ACCOUNT_USER;
-                                account.Password = Globals.Settings.TEMP_ACCOUNT_PASS;*/
+                LoginStatus status = RealmDatabaseManager.TryLoginAccount(accountName, accountPass);
 
-                if (account != null)
-                {
-                    if (version != Globals.Realm.CLIENT_VERSION)
-                        // If client version does not match, reject login attempt.
-                        authResult = AuthCode.AUTH_VERSION_MISMATCH;
-                    else if (!account.CheckPassword(accountPass))
-                        // If password does not match account, reject login attempt.
-                        authResult = AuthCode.AUTH_INCORRECT_PASSWORD;
-                    else
-                        // If no issues encountered, accept login attempt.
-                        authResult = AuthCode.AUTH_OK;
-                }
-                else
-                {
-                    // If account name is not recognized, reject login attempt.
+                if (version != Globals.Realm.CLIENT_VERSION)
+                    // If client version does not match, reject login attempt.
+                    authResult = AuthCode.AUTH_VERSION_MISMATCH;
+                else if (status == LoginStatus.INVALID_PASSWORD)
+                    // If password does not match account, reject login attempt.
+                    authResult = AuthCode.AUTH_INCORRECT_PASSWORD;
+                else if (status == LoginStatus.UNKNOWN_ACCOUNT)
+                    // If account doesn't exist, reject login attempt.
                     authResult = AuthCode.AUTH_UNKNOWN_ACCOUNT;
-                }
+                else
+                    // If no issues encountered, accept login attempt.
+                    authResult = AuthCode.AUTH_OK;
             }
 
             // result = true keeps the socket connection open. If handlers do not return true, the client connection is closed.

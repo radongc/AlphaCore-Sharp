@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // dotnet publish -r win-x64 -c Release in powershell to build (native).
+using AlphaCore_Sharp.Database.Realm;
 using AlphaCore_Sharp.Game;
 using AlphaCore_Sharp.Game.Realm;
 using AlphaCore_Sharp.Game.World;
@@ -31,7 +32,10 @@ namespace AlphaCore_Sharp
                 // Open connections to realmlist, and then realm -> world proxy servers.
                 RealmManager.RealmSocketSession.StartRealmThread();
                 RealmManager.RealmSocketSession.StartProxyThread();
-                Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}");
+                Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}\n");
+
+                // TODO: Database (DBC, World) initialization, data loading and mapping.
+                RealmDatabaseManager.InitializeRealmDatabase();
 
                 // Open world server connections.
                 WorldManager.WorldSocketSession.StartConnectionThread();
