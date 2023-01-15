@@ -19,7 +19,7 @@ namespace AlphaCore_Sharp
         {
             Logger.Message("AlphaCore#");
             Logger.Message("WoW 0.5.3 (3368) - Alpha Emulator");
-            Logger.Message("Written in Native C# with NativeAOT.");
+            Logger.Message("Written in C#, built on Native AOT (Fully native) or Ready2Run (Partially native).");
             Logger.Message("Based on The-Alpha-Project/alpha-core (Python) and barncastle/Alpha-WoW (.NET IL).\n");
 
             // TODO: Add detailed comments explaning step by step the realm, proxy, and world socket connection process.

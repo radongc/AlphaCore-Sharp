@@ -9,6 +9,16 @@ namespace AlphaCore_Sharp.Game
     // TODO: Move all of this to a config file outside the core code base.
     internal class Globals
     {
+        internal class Database
+        {
+            public const string MYSQL_IP = "127.0.0.1";
+            public const string MYSQL_USER = "root";
+            public const string MYSQL_PASS = "root";
+
+            public const string DBC_DB_NAME = "alpha_dbc";
+            public const string REALM_DB_NAME = "alpha_realm";
+            public const string WORLD_DB_NAME = "alpha_world";
+        }
         internal class Realm
         {
             public const string SERVER_IP = "127.0.0.1";
