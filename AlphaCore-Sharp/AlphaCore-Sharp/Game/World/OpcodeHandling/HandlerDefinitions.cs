@@ -18,6 +18,9 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
             // Authentication OpCodes.
             StoreOpCode(OpCode.CMSG_AUTH_SESSION, AuthenticationHandler.HandleAuthSession);
 
+            // Network OpCodes.
+            StoreOpCode(OpCode.CMSG_PING, NetworkHandler.HandlePing);
+
             // Character OpCodes.
             StoreOpCode(OpCode.CMSG_CHAR_ENUM, CharacterHandler.HandleCharEnum);
         }

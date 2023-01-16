@@ -14,7 +14,9 @@ namespace AlphaCore_Sharp.Database.Realm
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharacterButton> CharacterButtons { get; set; }
         public DbSet<CharacterDeathbind> CharacterDeathbinds { get; set; }
-        public DbSet<CharacterGifts> CharacterGifts { get; set; }
+
+        // Must set primary keys for below DbSets.
+        /*public DbSet<CharacterGifts> CharacterGifts { get; set; }
         public DbSet<CharacterInventory> CharacterInventories { get; set; }
         public DbSet<CharacterPet> CharacterPets { get; set; }
         public DbSet<CharacterPetSpell> CharacterPetSpells { get; set; }
@@ -31,7 +33,7 @@ namespace AlphaCore_Sharp.Database.Realm
         public DbSet<GuildMember> GuildMembers { get; set; }
         public DbSet<Petition> Petitions { get; set; }
         public DbSet<PetitionSign> PetitionSigns { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }*/
 
         // Set up MySQL connection to Realm database.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
