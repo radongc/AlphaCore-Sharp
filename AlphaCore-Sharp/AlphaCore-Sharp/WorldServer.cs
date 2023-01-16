@@ -23,6 +23,8 @@ namespace AlphaCore_Sharp
             Logger.Message("Written in C#, built on Ready2Run (Partially native).");
             Logger.Message("Based on The-Alpha-Project/alpha-core (Python) and barncastle/Alpha-WoW (.NET IL).\n");
 
+            Logger.PrintLogSettings();
+
             // TODO: Review boilerplate socket code and make recommended changes (to start off, we are nearly 1:1 with Alpha-WoW's base server code.)
             RealmManager.RealmSocketSession = new RealmSocket();
             WorldManager.WorldSocketSession = new WorldSocket();

@@ -67,6 +67,12 @@ namespace AlphaCore_Sharp.Database.Realm
         }
     }
 
+    [Table("applied_updates")]
+    internal class AppliedUpdate
+    {
+        public int ID { get; set; }
+    }
+
     [Table("characters")]
     internal class Character
     {
@@ -142,5 +148,113 @@ namespace AlphaCore_Sharp.Database.Realm
         public float DeathbindPositionY { get; set; }
         [Column("deathbind_position_z")]
         public float DeathbindPositionZ { get; set; }
+    }
+
+    [Table("character_gifts")]
+    internal class CharacterGifts
+    {
+
+    }
+
+    [Table("character_inventory")]
+    internal class CharacterInventory
+    {
+
+    }
+
+    [Table("character_pets")]
+    internal class CharacterPet
+    {
+
+    }
+
+    [Table("character_pet_spells")]
+    internal class CharacterPetSpell
+    {
+
+    }
+
+    [Table("character_quest_state")]
+    internal class CharacterQuestState
+    {
+
+    }
+
+    [Table("character_reputation")]
+    internal class CharacterReputation
+    {
+        
+    }
+
+    [Table("character_skills")]
+    internal class CharacterSkill
+    {
+
+    }
+
+    [Table("character_social")]
+    internal class CharacterSocial
+    {
+
+    }
+
+    [Table("character_spells")]
+    internal class CharacterSpell
+    {
+
+    }
+
+    [Table("character_spell_book")]
+    internal class CharacterSpellBook
+    {
+
+    }
+
+    [Table("character_spell_cooldown")]
+    internal class CharacterSpellCooldown
+    {
+
+    }
+
+    [Table("group")]
+    internal class Group
+    {
+
+    }
+
+    [Table("group_member")]
+    internal class GroupMember
+    {
+
+    }
+
+    [Table("guild")]
+    internal class Guild
+    {
+
+    }
+
+    [Table("guild_member")]
+    internal class GuildMember
+    {
+
+    }
+
+    [Table("petition")]
+    internal class Petition
+    {
+
+    }
+
+    [Table("petition_sign")]
+    internal class PetitionSign
+    {
+
+    }
+
+    [Table("tickets")]
+    internal class Ticket
+    {
+
     }
 }

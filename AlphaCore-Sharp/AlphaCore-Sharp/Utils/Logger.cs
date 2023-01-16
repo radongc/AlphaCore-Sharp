@@ -113,6 +113,8 @@ namespace AlphaCore_Sharp.Utils
             }
         }
 
+        //** Other Methods **//
+
         public static void Message(string message)
         {
             Console.WriteLine(message);
@@ -121,6 +123,24 @@ namespace AlphaCore_Sharp.Utils
         public static void NewLine()
         {
             Console.WriteLine();
+        }
+
+        public static void PrintLogSettings()
+        {
+            Message("Currently logging: ");
+            if (ShouldLog(DebugLevel.SUCCESS))
+                Message("   SUCCESS");
+            if (ShouldLog(DebugLevel.INFO))
+                Message("   INFO");
+            if (ShouldLog(DebugLevel.ANTICHEAT))
+                Message("   ANTICHEAT");
+            if (ShouldLog(DebugLevel.WARNING))
+                Message("   WARNING");
+            if (ShouldLog(DebugLevel.ERROR))
+                Message("   ERROR");
+            if (ShouldLog(DebugLevel.DEBUG))
+                Message("   DEBUG");
+            NewLine();
         }
     }
 }
