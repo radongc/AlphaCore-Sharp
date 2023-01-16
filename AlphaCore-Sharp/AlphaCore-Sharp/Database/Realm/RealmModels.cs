@@ -13,6 +13,25 @@ namespace AlphaCore_Sharp.Database.Realm
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharacterButton> CharacterButtons { get; set; }
+        public DbSet<CharacterDeathbind> CharacterDeathbinds { get; set; }
+        public DbSet<CharacterGifts> CharacterGifts { get; set; }
+        public DbSet<CharacterInventory> CharacterInventories { get; set; }
+        public DbSet<CharacterPet> CharacterPets { get; set; }
+        public DbSet<CharacterPetSpell> CharacterPetSpells { get; set; }
+        public DbSet<CharacterQuestState> CharacterQuestStates { get; set; }
+        public DbSet<CharacterReputation> CharacterReputations { get; set; }
+        public DbSet<CharacterSkill> CharacterSkills { get; set; }
+        public DbSet<CharacterSocial> CharacterSocials { get; set; }
+        public DbSet<CharacterSpell> CharacterSpells { get; set; }
+        public DbSet<CharacterSpellBook> CharacterSpellBooks { get; set; }
+        public DbSet<CharacterSpellCooldown> CharacterSpellCooldowns { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<Guild> Guilds { get; set; }
+        public DbSet<GuildMember> GuildMembers { get; set; }
+        public DbSet<Petition> Petitions { get; set; }
+        public DbSet<PetitionSign> PetitionSigns { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
         // Set up MySQL connection to Realm database.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
