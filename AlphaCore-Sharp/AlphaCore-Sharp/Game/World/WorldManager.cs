@@ -16,7 +16,7 @@ namespace AlphaCore_Sharp.Game.World
 {
     internal class WorldManager
     {
-        // TODO: Store Account and Character data.
+        // TODO: Store Character data.
         public ulong Id;
         public Account Account;
         public Socket Socket;

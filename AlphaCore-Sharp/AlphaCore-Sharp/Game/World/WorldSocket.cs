@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace AlphaCore_Sharp.Game.World
 {
-    // TODO: Add comments explaining this class.
     internal class WorldSocket
     {
         public bool ListenWorldSocket = true;
@@ -19,6 +18,7 @@ namespace AlphaCore_Sharp.Game.World
         {
             try
             {
+                // Create new TcpListener which waits for socket connection attempts to world server.
                 _worldListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.WORLD_PORT);
                 _worldListener.Start();
 

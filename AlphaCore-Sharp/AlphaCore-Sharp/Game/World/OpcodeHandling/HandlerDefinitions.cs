@@ -10,7 +10,7 @@ using static AlphaCore_Sharp.Game.World.OpcodeHandling.PacketManager;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling
 {
-    // TODO: Start adding handlers for packets.
+    // TODO: Finish character enum packet (pet and gear info).
     internal class HandlerDefinitions
     {
         public static void InitializePacketHandlers()

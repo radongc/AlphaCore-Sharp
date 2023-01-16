@@ -15,7 +15,6 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
 {
     internal class AuthenticationHandler
     {
-        // TODO: Implement account login (after ORM implemented with models and data loading.)
         public static bool HandleAuthSession(ref PacketReader packet, ref WorldManager worldSession)
         {
             bool result = false;

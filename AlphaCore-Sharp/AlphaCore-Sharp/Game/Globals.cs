@@ -29,14 +29,6 @@ namespace AlphaCore_Sharp.Game
             public const string REALM_NAME = "|c0000FF00AlphaCore Sharp";
         }
 
-        internal class Settings
-        {
-            // TODO: Remove this and replace with db-stored accounts.
-            public const string TEMP_ACCOUNT_USER = "admin";
-            // TEMP_ACCOUNT_PASS = "admin".
-            public const string TEMP_ACCOUNT_PASS = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
-        }
-
         internal class Logging
         {
             /*  

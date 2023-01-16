@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace AlphaCore_Sharp.Game.Realm
 {
-    // TODO: Add comments explaining this class.
     internal class RealmSocket
     {
         public bool ListenRealmSocket = true;
@@ -22,6 +21,7 @@ namespace AlphaCore_Sharp.Game.Realm
             // Start TCP Listeners for realmlist and realm -> world proxy.
             try
             {
+                // Create new TcpListeners which wait for socket connection attempts to realm and proxy servers.
                 _realmListener = new TcpListener(IPAddress.Parse(Globals.Realm.SERVER_IP), Globals.Realm.REALM_PORT);
                 _realmListener.Start();
 

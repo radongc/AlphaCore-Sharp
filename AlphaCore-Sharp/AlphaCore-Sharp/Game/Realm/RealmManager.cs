@@ -39,7 +39,7 @@ namespace AlphaCore_Sharp.Game.Realm
             realmPacket += (byte)1; // Realm ID?
             realmPacket += $"{Globals.Realm.REALM_NAME}"; // Realm name.
             realmPacket += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
-            realmPacket += (uint)RealmDatabaseManager.CharacterGetOnlineCount(); // TODO: Number of online players.
+            realmPacket += (uint)RealmDatabaseManager.CharacterGetOnlineCount();
 
             // Send this packet on the realmlist socket.
             session.Send(realmPacket, RealmSocket);

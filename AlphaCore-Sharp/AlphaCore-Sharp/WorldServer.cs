@@ -57,6 +57,5 @@ namespace AlphaCore_Sharp
     }
 }
 
-// TODO: Add better comments explaining RealmSocket and WorldSocket.
 // TODO: Review ORM (EF) and see if one can be found that supports Native AOT.
 // TODO: Start loading data from database.

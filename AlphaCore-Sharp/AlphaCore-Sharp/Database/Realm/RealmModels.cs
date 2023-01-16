@@ -52,7 +52,6 @@ namespace AlphaCore_Sharp.Database.Realm
             this.Password = HashPassword(plaintextPassword);
         }
 
-        // TODO: Replace placeholder account.
         public bool CheckPassword(string plaintextPassword) => Password == HashPassword(plaintextPassword);
 
         public string HashPassword(string plaintextPassword)
