@@ -28,7 +28,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.DEBUG))
             {
                 DateTime date = DateTime.Now;
+
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.White;
+
                 Console.WriteLine($"[DEBUG] [{date}] {message}");
+
+                Console.ForegroundColor = oldColor;
             }
         }
 
@@ -37,7 +43,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.ERROR))
             {
                 DateTime date = DateTime.Now;
+
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 Console.WriteLine($"[ERROR] [{date}] {message}");
+
+                Console.ForegroundColor = oldColor;
             }
         }
 
@@ -46,7 +58,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.WARNING))
             {
                 DateTime date = DateTime.Now;
+
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine($"[WARNING] [{date}] {message}");
+
+                Console.ForegroundColor = oldColor;
             }
         }
 
@@ -55,7 +73,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.ANTICHEAT))
             {
                 DateTime date = DateTime.Now;
+
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+
                 Console.WriteLine($"[ANTICHEAT] [{date}] {message}");
+
+                Console.ForegroundColor = oldColor;
             }
         }
 
@@ -64,7 +88,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.INFO))
             {
                 DateTime date = DateTime.Now;
-                Console.WriteLine($"[INFO] [{date}] {message}");
+
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                Console.WriteLine($"[INFO] [{date}] {message}", Console.ForegroundColor);
+
+                Console.ForegroundColor = oldColor;
             }
         }
 
@@ -73,7 +103,13 @@ namespace AlphaCore_Sharp.Utils
             if (ShouldLog(DebugLevel.SUCCESS))
             {
                 DateTime date = DateTime.Now;
-                Console.WriteLine($"[SUCCESS] [{date}] {message}");
+                
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                Console.WriteLine($"[SUCCESS] [{date}] {message}", Console.ForegroundColor);
+
+                Console.ForegroundColor = oldColor;
             }
         }
 

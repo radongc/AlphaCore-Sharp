@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using AlphaCore_Sharp.Game;
+﻿using AlphaCore_Sharp.Game;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
+using System.Text;
 
 // TODO: EF Core does not support Native AOT. Must find an ORM that does, or write your own.
 // Furthermore, there are issues with IQueryable objects and Native AOT as well.
@@ -19,6 +12,7 @@ namespace AlphaCore_Sharp.Database.Realm
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Character> Characters { get; set; }
+        public DbSet<CharacterButton> CharacterButtons { get; set; }
 
         // Set up MySQL connection to Realm database.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,10 +29,17 @@ namespace AlphaCore_Sharp.Database.Realm
             
             modelBuilder.Entity<Character>()
                 .HasKey(c => new { c.GUID, c.Account, c.Name, c.Online });
+
+            modelBuilder.Entity<CharacterButton>()
+                .HasKey(cb => new { cb.Owner, cb.Index, cb.Action });
         }
     }
 
+    // ** Models ** //
+    // Columns with "Column" attribute have a different in-database name than their model property name.
+
     // TODO: Possibly rewrite this, we don't want to have the account Model be the same object as the account manager.
+    [Table("accounts")]
     internal class Account
     {
         public int Id { get; set; }
@@ -65,6 +66,7 @@ namespace AlphaCore_Sharp.Database.Realm
         }
     }
 
+    [Table("characters")]
     internal class Character
     {
         public int GUID { get; set; }
@@ -84,19 +86,25 @@ namespace AlphaCore_Sharp.Database.Realm
         public int BankSlots { get; set; }
         public int TalentPoints { get; set; }
         public int SkillPoints { get; set; }
-        public float Position_X { get; set; }
-        public float Position_Y { get; set; }
-        public float Position_Z { get; set; }
+        [Column("position_x")]
+        public float PositionX { get; set; }
+        [Column("position_y")]
+        public float PositionY { get; set; }
+        [Column("position_z")]
+        public float PositionZ { get; set; }
         public int Map { get; set; }
         public float Orientation { get; set; }
         public string TaxiMask { get; set; }
-        public string Explored_Areas { get; set; }
+        [Column("explored_areas")]
+        public string ExploredAreas { get; set; }
         public int Online { get; set; }
         public int TotalTime { get; set; }
         public int LevelTime { get; set; }
-        public int Extra_Flags { get; set; }
+        [Column("extra_flags")]
+        public int ExtraFlags { get; set; }
         public int Zone { get; set; }
-        public string Taxi_Path { get; set; }
+        [Column("taxi_path")]
+        public string TaxiPath { get; set; }
         public int Drunk { get; set; }
         public int Health { get; set; }
         public int Power1 { get; set; }
@@ -104,5 +112,13 @@ namespace AlphaCore_Sharp.Database.Realm
         public int Power3 { get; set; }
         public int Power4 { get; set; }
         public int Power5 { get; set; }
+    }
+
+    [Table("character_buttons")]
+    internal class CharacterButton
+    {
+        public int Owner { get; set; }
+        public int Index { get; set; }
+        public int Action { get; set; }
     }
 }

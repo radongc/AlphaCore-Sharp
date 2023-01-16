@@ -28,6 +28,7 @@ namespace AlphaCore_Sharp.Database.Realm
                 // Best solution so far to first query of table taking extra time. However, this makes first query happen on startup, making startup take longer.
                 models.Accounts.FirstOrDefault();
                 models.Characters.FirstOrDefault();
+                models.CharacterButtons.FirstOrDefault();
             }
         }
 

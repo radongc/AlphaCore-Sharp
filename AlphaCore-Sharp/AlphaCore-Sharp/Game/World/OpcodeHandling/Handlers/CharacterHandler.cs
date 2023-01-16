@@ -64,11 +64,11 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             characterPacket += (uint)character.Map;
 
             // Location: X
-            characterPacket += (float)character.Position_X;
+            characterPacket += (float)character.PositionX;
             // Location: Y
-            characterPacket += (float)character.Position_Y;
+            characterPacket += (float)character.PositionY;
             // Location: Z
-            characterPacket += (float)character.Position_Z;
+            characterPacket += (float)character.PositionZ;
 
             // Guild GUID.
             characterPacket += (uint)0;
