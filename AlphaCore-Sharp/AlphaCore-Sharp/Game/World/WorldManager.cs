@@ -1,4 +1,5 @@
-﻿using AlphaCore_Sharp.Game.World.OpcodeHandling;
+﻿using AlphaCore_Sharp.Database.Realm;
+using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
 using System;
@@ -17,6 +18,7 @@ namespace AlphaCore_Sharp.Game.World
     {
         // TODO: Store Account and Character data.
         public ulong Id;
+        public Account Account;
         public Socket Socket;
         public static WorldSocket WorldSocketSession;
 

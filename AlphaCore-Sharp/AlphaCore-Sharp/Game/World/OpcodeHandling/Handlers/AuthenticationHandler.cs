@@ -33,6 +33,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             // Read account name and password from CMSG_AUTH_SESSION.
             string[] nameAndPass = packet.ReadString().Split(new string[] { "\r\n", "\r", "\n" }, 
                                                              StringSplitOptions.RemoveEmptyEntries);
+            AccountInfo loginAttempt = new AccountInfo();
 
             // If name and password size is not exactly 2, return unknown account.
             if (nameAndPass.Length != 2)
@@ -42,15 +43,15 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                 string accountName = nameAndPass[0];
                 string accountPass = nameAndPass[1];
 
-                LoginStatus status = RealmDatabaseManager.TryLoginAccount(accountName, accountPass);
+                loginAttempt = RealmDatabaseManager.TryLoginAccount(accountName, accountPass);
 
                 if (version != Globals.Realm.CLIENT_VERSION)
                     // If client version does not match, reject login attempt.
                     authResult = AuthCode.AUTH_VERSION_MISMATCH;
-                else if (status == LoginStatus.INVALID_PASSWORD)
+                else if (loginAttempt.status == LoginStatus.INVALID_PASSWORD)
                     // If password does not match account, reject login attempt.
                     authResult = AuthCode.AUTH_INCORRECT_PASSWORD;
-                else if (status == LoginStatus.UNKNOWN_ACCOUNT)
+                else if (loginAttempt.status == LoginStatus.UNKNOWN_ACCOUNT)
                     // If account doesn't exist, reject login attempt.
                     authResult = AuthCode.AUTH_UNKNOWN_ACCOUNT;
                 else
@@ -60,7 +61,11 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
 
             // result = true keeps the socket connection open. If handlers do not return true, the client connection is closed.
             if (authResult == AuthCode.AUTH_OK)
+            {
                 result = true;
+
+                worldSession.Account = loginAttempt.account!;
+            }
 
             // Write result to the response packet.
             responsePacket += (byte)authResult;

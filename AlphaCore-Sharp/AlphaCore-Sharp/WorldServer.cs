@@ -20,10 +20,9 @@ namespace AlphaCore_Sharp
         {
             Logger.Message("AlphaCore#");
             Logger.Message("WoW 0.5.3 (3368) - Alpha Emulator");
-            Logger.Message("Written in C#, built on Native AOT (Fully native) or Ready2Run (Partially native).");
+            Logger.Message("Written in C#, built on Ready2Run (Partially native).");
             Logger.Message("Based on The-Alpha-Project/alpha-core (Python) and barncastle/Alpha-WoW (.NET IL).\n");
 
-            // TODO: Add detailed comments explaning step by step the realm, proxy, and world socket connection process.
             // TODO: Review boilerplate socket code and make recommended changes (to start off, we are nearly 1:1 with Alpha-WoW's base server code.)
             RealmManager.RealmSocketSession = new RealmSocket();
             WorldManager.WorldSocketSession = new WorldSocket();
@@ -58,7 +57,6 @@ namespace AlphaCore_Sharp
     }
 }
 
-// TODO: Add comments explaining the full process of client connection in RealmSocket, WorldSocket, RealmManager, and WorldManager.
-// TODO: Choose a good ORM (or write your own, not recommended) and start adding database models.
-// TODO: Start loading data from database after ORM is chosen and implemented.
-// TODO: Make sure account auth process is working properly and start writing opcode handlers.
+// TODO: Add better comments explaining RealmSocket and WorldSocket.
+// TODO: Review ORM (EF) and see if one can be found that supports Native AOT.
+// TODO: Start loading data from database.

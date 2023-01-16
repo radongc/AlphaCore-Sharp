@@ -7,26 +7,54 @@ using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
 
 namespace AlphaCore_Sharp.Database.Realm
 {
-    internal class RealmDatabaseManager
+    internal struct AccountInfo
     {
-        private static RealmModels? _realmModels;
-
-        public static void InitializeRealmDatabase()
+        internal AccountInfo(Account acc, LoginStatus status)
         {
-            _realmModels = new RealmModels();
+            this.account = acc;
+            this.status = status;
         }
 
-        public static LoginStatus TryLoginAccount(string username, string password)
+        public Account? account { get; set; }
+        public LoginStatus status { get; set; }
+    }
+
+    internal class RealmDatabaseManager
+    {
+        public static void InitializeRealmDatabase()
         {
-            Account account = _realmModels.Accounts.Where(acc => acc.Name == username).FirstOrDefault();
-            if (account == null)
-                return LoginStatus.UNKNOWN_ACCOUNT;
-            else
+            using (RealmModels models = new RealmModels())
             {
-                if (!account.CheckPassword(password))
-                    return LoginStatus.INVALID_PASSWORD;
+                // Best solution so far to first query of table taking extra time. However, this makes first query happen on startup, making startup take longer.
+                models.Accounts.FirstOrDefault();
+                models.Characters.FirstOrDefault();
+            }
+        }
+
+        public static AccountInfo TryLoginAccount(string username, string password)
+        {
+            using (RealmModels models = new RealmModels())
+            {
+                Account account = models.Accounts.Where(acc => acc.Name == username).FirstOrDefault();
+                if (account == null)
+                    return new AccountInfo(null, LoginStatus.UNKNOWN_ACCOUNT);
                 else
-                    return LoginStatus.SUCCESS;
+                {
+                    if (!account.CheckPassword(password))
+                        return new AccountInfo(null, LoginStatus.INVALID_PASSWORD);
+                    else
+                        return new AccountInfo(account, LoginStatus.SUCCESS);
+                }
+            }
+        }
+
+        public static List<Character> AccountGetCharacters(int accountId)
+        {
+            using (RealmModels models = new RealmModels())
+            {
+                List<Character> chars = models.Characters.Where(ch => ch.Account == accountId).ToList();
+
+                return chars ?? new List<Character> { };
             }
         }
     }

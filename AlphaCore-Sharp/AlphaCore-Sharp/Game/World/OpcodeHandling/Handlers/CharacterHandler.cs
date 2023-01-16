@@ -1,4 +1,5 @@
-﻿using AlphaCore_Sharp.Network.Packet;
+﻿using AlphaCore_Sharp.Database.Realm;
+using AlphaCore_Sharp.Network.Packet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,59 +11,73 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
 {
     internal class CharacterHandler
     {
-        // TODO: Rewrite this to actually fetch real characters instead of sending mock data.
+        // TODO: Rewrite this to actually fetch real gear data instead of sending mock data.
         public static bool HandleCharEnum(ref PacketReader packet, ref WorldManager worldSession)
         {
             bool result = false;
 
+            var chars = RealmDatabaseManager.AccountGetCharacters(worldSession.Account.Id);
+
             PacketWriter charPacket = new PacketWriter(OpCode.SMSG_CHAR_ENUM);
             // Write number of characters found.
-            charPacket += (byte)1;
+            charPacket += (byte)chars.Count;
 
+            // Add character data for each character to packet.
+            foreach (Character c in chars)
+                GetCharacterPacket(worldSession, c, ref charPacket);
+
+            // Send character packet to client and return success.
+            worldSession.Send(charPacket);
+            result = true;
+            return result;
+        }
+
+        public static void GetCharacterPacket(WorldManager worldSession, Character character, ref PacketWriter characterPacket)
+        {
             // GUID.
-            charPacket += (ulong)1;
+            characterPacket += (ulong)character.GUID;
             // Name.
-            charPacket += "Arthas";
+            characterPacket += character.Name;
 
             // Race.
-            charPacket += (byte)1;
+            characterPacket += (byte)character.Race;
             // Class.
-            charPacket += (byte)3;
+            characterPacket += (byte)character.Class;
             // Gender.
-            charPacket += (byte)0;
+            characterPacket += (byte)character.Gender;
             // Skin.
-            charPacket += (byte)1;
+            characterPacket += (byte)character.Skin;
             // Face
-            charPacket += (byte)1;
+            characterPacket += (byte)character.Face;
             // Hair style.
-            charPacket += (byte)3;
+            characterPacket += (byte)character.HairStyle;
             // Hair color.
-            charPacket += (byte)2;
+            characterPacket += (byte)character.HairColour;
             // Facial hair.
-            charPacket += (byte)0;
+            characterPacket += (byte)character.FacialHair;
             // Level.
-            charPacket += (byte)23;
+            characterPacket += (byte)character.Level;
 
             // Zone.
-            charPacket += (uint)37;
+            characterPacket += (uint)character.Zone;
             // Map.
-            charPacket += (uint)0;
+            characterPacket += (uint)character.Map;
 
             // Location: X
-            charPacket += (float)509.15f;
+            characterPacket += (float)character.Position_X;
             // Location: Y
-            charPacket += (float)172.36f;
+            characterPacket += (float)character.Position_Y;
             // Location: Z
-            charPacket += (float)42.90f;
+            characterPacket += (float)character.Position_Z;
 
             // Guild GUID.
-            charPacket += (uint)0;
+            characterPacket += (uint)0;
             // Pet Display Info.
-            charPacket += (uint)0;
+            characterPacket += (uint)0;
             // Pet level.
-            charPacket += (uint)0;
+            characterPacket += (uint)0;
             // Pet family.
-            charPacket += (uint)0;
+            characterPacket += (uint)0;
 
             // Send mock gear data.
             for (byte i = 0; i < 22; i++)
@@ -71,15 +86,10 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                     continue;
 
                 // Gear display ID.
-                charPacket += (uint)1965;
+                characterPacket += (uint)1965;
                 // Gear inventory type.
-                charPacket += (byte)i;
+                characterPacket += (byte)i;
             }
-
-            // Send character packet to client and return success.
-            worldSession.Send(charPacket);
-            result = true;
-            return result;
         }
     }
 }
