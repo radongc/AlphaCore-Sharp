@@ -31,7 +31,9 @@ namespace AlphaCore_Sharp.Database.Realm
             }
         }
 
-        public static AccountInfo TryLoginAccount(string username, string password)
+        // ** Account ** //
+
+        public static AccountInfo AccountTryLogin(string username, string password)
         {
             using (RealmModels models = new RealmModels())
             {
@@ -55,6 +57,18 @@ namespace AlphaCore_Sharp.Database.Realm
                 List<Character> chars = models.Characters.Where(ch => ch.Account == accountId).ToList();
 
                 return chars ?? new List<Character> { };
+            }
+        }
+
+        // ** Character ** //
+
+        public static int CharacterGetOnlineCount()
+        {
+            using (RealmModels models = new RealmModels())
+            {
+                int onlineCount = models.Characters.Where(c => c.Online == 1).ToList().Count();
+
+                return onlineCount;
             }
         }
     }

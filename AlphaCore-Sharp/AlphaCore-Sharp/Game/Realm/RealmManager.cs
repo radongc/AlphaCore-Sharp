@@ -1,4 +1,5 @@
-﻿using AlphaCore_Sharp.Network.Packet;
+﻿using AlphaCore_Sharp.Database.Realm;
+using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
 using System;
 using System.Collections.Generic;
@@ -34,14 +35,14 @@ namespace AlphaCore_Sharp.Game.Realm
         public void HandleRealmList(RealmManager session)
         {
             // Create a new bare packet containing the realm ID (?), realm name, address, and population.
-            PacketWriter realmWriter = new PacketWriter();
-            realmWriter += (byte)1; // Realm ID?
-            realmWriter += $"{Globals.Realm.REALM_NAME}"; // Realm name.
-            realmWriter += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
-            realmWriter += (uint)4916; // TODO: Number of online players.
+            PacketWriter realmPacket = new PacketWriter();
+            realmPacket += (byte)1; // Realm ID?
+            realmPacket += $"{Globals.Realm.REALM_NAME}"; // Realm name.
+            realmPacket += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
+            realmPacket += (uint)RealmDatabaseManager.CharacterGetOnlineCount(); // TODO: Number of online players.
 
             // Send this packet on the realmlist socket.
-            session.Send(realmWriter, RealmSocket);
+            session.Send(realmPacket, RealmSocket);
 
             // Close realmlist connection as it is no longer needed.
             RealmSocket.Close();

@@ -43,7 +43,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                 string accountName = nameAndPass[0];
                 string accountPass = nameAndPass[1];
 
-                loginAttempt = RealmDatabaseManager.TryLoginAccount(accountName, accountPass);
+                loginAttempt = RealmDatabaseManager.AccountTryLogin(accountName, accountPass);
 
                 if (version != Globals.Realm.CLIENT_VERSION)
                     // If client version does not match, reject login attempt.
