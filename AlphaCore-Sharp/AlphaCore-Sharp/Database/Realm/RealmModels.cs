@@ -23,7 +23,7 @@ namespace AlphaCore_Sharp.Database.Realm
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define primary keys (FluentAPI, EF < 7.0); Pomelo
+            // Define primary keys (FluentAPI, EF < 7.0); Pomelo.
             modelBuilder.Entity<Account>()
                 .HasKey(a => new { a.Id });
             
@@ -37,6 +37,7 @@ namespace AlphaCore_Sharp.Database.Realm
 
     // ** Models ** //
     // Columns with "Column" attribute have a different in-database name than their model property name.
+    // Keys named 'ID' do not need to be marked by FluentAPI (in OnModelCreating); otherwise they must be marked.
 
     // TODO: Possibly rewrite this, we don't want to have the account Model be the same object as the account manager.
     [Table("accounts")]
@@ -120,5 +121,26 @@ namespace AlphaCore_Sharp.Database.Realm
         public int Owner { get; set; }
         public int Index { get; set; }
         public int Action { get; set; }
+    }
+
+    [Table("character_deathbind")]
+    internal class CharacterDeathbind
+    {
+        [Column("deathbind_id")]
+        public int ID { get; set; }
+        [Column("player_guid")]
+        public int PlayerGUID { get; set; }
+        [Column("creature_binder_guid")]
+        public int CreatureBinderGUID { get; set; }
+        [Column("deathbind_map")]
+        public int DeathbindMap { get; set; }
+        [Column("deathbind_zone")]
+        public int DeathbindZone { get; set; }
+        [Column("deathbind_position_x")]
+        public float DeathbindPositionX { get; set; }
+        [Column("deathbind_position_y")]
+        public float DeathbindPositionY { get; set; }
+        [Column("deathbind_position_z")]
+        public float DeathbindPositionZ { get; set; }
     }
 }

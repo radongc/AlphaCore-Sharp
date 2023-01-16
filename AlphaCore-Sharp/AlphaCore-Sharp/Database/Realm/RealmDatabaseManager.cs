@@ -7,6 +7,7 @@ using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
 
 namespace AlphaCore_Sharp.Database.Realm
 {
+    // TODO: Refactor and/or move this struct somewhere else, verify that this is the best way to check login attempt.
     internal struct AccountInfo
     {
         internal AccountInfo(Account acc, LoginStatus status)
@@ -19,6 +20,7 @@ namespace AlphaCore_Sharp.Database.Realm
         public LoginStatus status { get; set; }
     }
 
+    // TODO: Add comments explaining this class.
     internal class RealmDatabaseManager
     {
         public static void InitializeRealmDatabase()

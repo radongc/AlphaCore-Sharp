@@ -36,6 +36,9 @@ namespace AlphaCore_Sharp
                 // TODO: Database (DBC, World) initialization, data loading and mapping.
                 RealmDatabaseManager.InitializeRealmDatabase();
 
+                // Load game data (mostly DBC and World db's).
+                WorldLoader.LoadData();
+
                 // Open world server connections.
                 WorldManager.WorldSocketSession.StartConnectionThread();
                 Logger.Success($"World Server listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.WORLD_PORT}\n");
