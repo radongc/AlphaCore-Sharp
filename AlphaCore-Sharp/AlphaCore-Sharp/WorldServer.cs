@@ -41,6 +41,9 @@ namespace AlphaCore_Sharp
 
                 // Open world server connections.
                 WorldManager.WorldSocketSession.StartConnectionThread();
+
+                // Force newline...
+                Logger.NewLine();
                 Logger.Success($"World Server listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.WORLD_PORT}\n");
 
                 // Setup packet handlers.
@@ -53,7 +56,7 @@ namespace AlphaCore_Sharp
 
             // Free memory.
             GC.Collect();
-            Logger.Info($"Total memory usage: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB.\n");
+            Logger.Debug($"Total memory usage: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB.\n");
 
             // TODO: Initialize commands.
         }

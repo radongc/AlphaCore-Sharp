@@ -117,5 +117,10 @@ namespace AlphaCore_Sharp.Utils
         {
             Console.WriteLine(message);
         }
+
+        public static void NewLine()
+        {
+            Console.WriteLine();
+        }
     }
 }
