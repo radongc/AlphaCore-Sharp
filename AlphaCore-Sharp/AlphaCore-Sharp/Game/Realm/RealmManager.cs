@@ -36,7 +36,7 @@ namespace AlphaCore_Sharp.Game.Realm
         {
             // Create a new bare packet containing the realm ID (?), realm name, address, and population.
             PacketWriter realmPacket = new PacketWriter();
-            realmPacket += (byte)1; // Realm ID?
+            realmPacket += (byte)1; // Realm ID? Seems that it must be '1' always.
             realmPacket += $"{Globals.Realm.REALM_NAME}"; // Realm name.
             realmPacket += $"{Globals.Realm.SERVER_IP}:{Globals.Realm.PROXY_PORT}"; // Realm IP/Port.
             realmPacket += (uint)RealmDatabaseManager.CharacterGetOnlineCount();

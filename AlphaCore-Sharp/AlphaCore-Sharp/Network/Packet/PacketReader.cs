@@ -4,6 +4,11 @@ using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Network.Packet
 {
+    /* PacketReader
+     * Based on barncastle/Alpha-WoW's PacketReader class.
+     * POCO representation of incoming game packet.
+     */
+
     // TODO: Add comments explaining this class.
     internal class PacketReader : BinaryReader
     {

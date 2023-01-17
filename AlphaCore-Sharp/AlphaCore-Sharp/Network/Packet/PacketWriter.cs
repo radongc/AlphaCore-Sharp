@@ -8,6 +8,7 @@ using static AlphaCore_Sharp.Utils.Constants.OpCodes;
  * PacketWriter
  * Serialization class derived from barncastle/Alpha-WoW's PacketWriter.
  * Can use 'Write' methods to serialize, or use '+=' operators for convenience.
+ * POCO representation of outgoing game packet.
  */
 
 // TODO: Add comments explaining this class.

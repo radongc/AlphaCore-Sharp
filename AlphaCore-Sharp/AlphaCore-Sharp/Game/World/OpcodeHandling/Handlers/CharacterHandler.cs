@@ -11,6 +11,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
         {
             bool result = false;
 
+            // Get character list for account.
             var chars = RealmDatabaseManager.AccountGetCharacters(worldSession.Account.Id);
 
             PacketWriter charPacket = new PacketWriter(OpCode.SMSG_CHAR_ENUM);
