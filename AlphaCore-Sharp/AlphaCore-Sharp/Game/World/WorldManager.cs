@@ -1,4 +1,4 @@
-﻿using AlphaCore_Sharp.Database.Realm;
+﻿using AlphaCore_Sharp.Database.Realm.Models;
 using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;

@@ -6,17 +6,28 @@
     <RootNamespace>AlphaCore_Sharp</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PublishAot>false</PublishAot>
+    <PublishAot>true</PublishAot>
+	<PublishTrimmed>true</PublishTrimmed>
+
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="dapper" Version="2.0.123" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="linq2db" Version="4.4.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
     <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\World\Managers\Objects\" />
+	  <RdXmlFile Include="rd.xml" />
+	  <Folder Include="Game\World\Managers\Objects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\Program Files (x86)\MySQL\MySQL Connector NET 8.0.31\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

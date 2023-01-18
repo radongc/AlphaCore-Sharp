@@ -1,30 +1,22 @@
 ﻿using AlphaCore_Sharp.Game;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using MySqlConnector;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlphaCore_Sharp.Database.Dbc
+namespace AlphaCore_Sharp.Database.Dbc.Models
 {
-    internal class DbcModels : DbContext
+    internal class DbcModels
     {
-        public DbSet<AreaTable> AreaTables { get; set; }
-        public DbSet<SkillLine> SkillLines { get; set; }
-
-        // Set up MySQL connection to Dbc database.
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public static MySqlConnection GetDbcConnection()
         {
-            string connectionString = $"server={Globals.Database.MYSQL_IP};user={Globals.Database.MYSQL_USER};password={Globals.Database.MYSQL_PASS};database={Globals.Database.DBC_DB_NAME}";
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            string connectionString = @$"Server={Globals.Database.MYSQL_IP};Database={Globals.Database.DBC_DB_NAME}; User ID={Globals.Database.MYSQL_USER};Password={Globals.Database.MYSQL_PASS};";
+            return new MySqlConnection(connectionString);
         }
     }
 
-    [Table("AreaTable")]
     internal class AreaTable
     {
+        public const string TABLENAME = "AreaTable";
+
         public int ID { get; set; }
         public int AreaNumber { get; set; }
         public int ContinentID { get; set; }
@@ -49,9 +41,10 @@ namespace AlphaCore_Sharp.Database.Dbc
         public int AreaName_Mask { get; set; }
     }
 
-    [Table("SkillLine")]
     internal class SkillLine
     {
+        public const string TABLENAME = "SkillLine";
+
         public int ID { get; set; }
         public int RaceMask { get; set; }
         public int ClassMask { get; set; }

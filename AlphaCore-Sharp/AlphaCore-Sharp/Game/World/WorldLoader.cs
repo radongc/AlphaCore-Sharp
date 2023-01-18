@@ -1,4 +1,5 @@
 ﻿using AlphaCore_Sharp.Database.Dbc;
+using AlphaCore_Sharp.Database.Dbc.Models;
 using AlphaCore_Sharp.Utils;
 using System;
 using System.Collections.Generic;

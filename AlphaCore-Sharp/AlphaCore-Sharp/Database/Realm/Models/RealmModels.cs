@@ -1,60 +1,22 @@
 ﻿using AlphaCore_Sharp.Game;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
+using LinqToDB.Mapping;
+using LinqToDB;
 
 // TODO: Investigate replacing EF Core with Dapper.
 // EF Core does not work with Native AOT. Supposedly, that will be a part of EF Core 8.0
 // Also supposedly, Dapper does work with Native AOT.
-namespace AlphaCore_Sharp.Database.Realm
+// Although I prefer the syntax of EF Core to Dapper (and the use of LINQ/IQueryable objects), building with Native AOT is a priority.
+// Maybe in the future we can go back to EF Core once it supports Native AOT.
+namespace AlphaCore_Sharp.Database.Realm.Models
 {
-    internal class RealmModels : DbContext
+    internal class RealmModels : LinqToDB.Data.DataConnection
     {
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<CharacterButton> CharacterButtons { get; set; }
-        public DbSet<CharacterDeathbind> CharacterDeathbinds { get; set; }
+        public RealmModels() : base(LinqToDB.ProviderName.MySql, @$"Server={Globals.Database.MYSQL_IP};Database={Globals.Database.REALM_DB_NAME}; User ID={Globals.Database.MYSQL_USER};Password={Globals.Database.MYSQL_PASS};") { }
 
-        // Must set primary keys for below DbSets.
-        /*public DbSet<CharacterGifts> CharacterGifts { get; set; }
-        public DbSet<CharacterInventory> CharacterInventories { get; set; }
-        public DbSet<CharacterPet> CharacterPets { get; set; }
-        public DbSet<CharacterPetSpell> CharacterPetSpells { get; set; }
-        public DbSet<CharacterQuestState> CharacterQuestStates { get; set; }
-        public DbSet<CharacterReputation> CharacterReputations { get; set; }
-        public DbSet<CharacterSkill> CharacterSkills { get; set; }
-        public DbSet<CharacterSocial> CharacterSocials { get; set; }
-        public DbSet<CharacterSpell> CharacterSpells { get; set; }
-        public DbSet<CharacterSpellBook> CharacterSpellBooks { get; set; }
-        public DbSet<CharacterSpellCooldown> CharacterSpellCooldowns { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<GroupMember> GroupMembers { get; set; }
-        public DbSet<Guild> Guilds { get; set; }
-        public DbSet<GuildMember> GuildMembers { get; set; }
-        public DbSet<Petition> Petitions { get; set; }
-        public DbSet<PetitionSign> PetitionSigns { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }*/
-
-        // Set up MySQL connection to Realm database.
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string connectionString = $"server={Globals.Database.MYSQL_IP};user={Globals.Database.MYSQL_USER};password={Globals.Database.MYSQL_PASS};database={Globals.Database.REALM_DB_NAME}";
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Define primary keys (FluentAPI, EF < 7.0); Pomelo.
-            modelBuilder.Entity<Account>()
-                .HasKey(a => new { a.Id });
-            
-            modelBuilder.Entity<Character>()
-                .HasKey(c => new { c.GUID, c.Account, c.Name, c.Online });
-
-            modelBuilder.Entity<CharacterButton>()
-                .HasKey(cb => new { cb.Owner, cb.Index, cb.Action });
-        }
+        public ITable<Account> Accounts => this.GetTable<Account>();
+        public ITable<Character> Characters => this.GetTable<Character>();
     }
 
     // ** Models ** //
@@ -62,18 +24,23 @@ namespace AlphaCore_Sharp.Database.Realm
     // Keys named 'ID' do not need to be marked by FluentAPI (in OnModelCreating); otherwise they must be marked.
 
     // TODO: Possibly rewrite this, we don't want to have the account Model be the same object as the account manager.
-    [Table("accounts")]
+    [Table(Name = "accounts")]
     internal class Account
     {
+        [PrimaryKey]
         public int Id { get; set; }
+        [Column]
         public string Name { get; set; }
+        [Column]
         public string Password { get; set; }
+        [Column]
         public string Ip { get; set; }
+        [Column]
         public int Gmlevel { get; set; }
 
         public void SetPassword(string plaintextPassword)
         {
-            this.Password = HashPassword(plaintextPassword);
+            Password = HashPassword(plaintextPassword);
         }
 
         public bool CheckPassword(string plaintextPassword) => Password == HashPassword(plaintextPassword);
@@ -89,192 +56,226 @@ namespace AlphaCore_Sharp.Database.Realm
         }
     }
 
-    [Table("applied_updates")]
     internal class AppliedUpdate
     {
         public int ID { get; set; }
     }
 
-    [Table("characters")]
+    [Table(Name = "characters")]
     internal class Character
     {
+        [PrimaryKey]
         public int GUID { get; set; }
+        [PrimaryKey]
         public int Account { get; set; }
+        [PrimaryKey]
         public string Name { get; set; }
+        [Column]
         public int Race { get; set; }
+        [Column]
         public int Class { get; set; }
+        [Column]
         public int Gender { get; set; }
+        [Column]
         public int Level { get; set; }
+        [Column]
         public int XP { get; set; }
+        [Column]
         public int Money { get; set; }
+        [Column]
         public int Skin { get; set; }
+        [Column]
         public int Face { get; set; }
+        [Column]
         public int HairStyle { get; set; }
+        [Column]
         public int HairColour { get; set; }
+        [Column]
         public int FacialHair { get; set; }
+        [Column]
         public int BankSlots { get; set; }
+        [Column]
         public int TalentPoints { get; set; }
+        [Column]
         public int SkillPoints { get; set; }
-        [Column("position_x")]
+        [Column(Name = "position_x")]
         public float PositionX { get; set; }
-        [Column("position_y")]
+        [Column(Name = "position_y")]
         public float PositionY { get; set; }
-        [Column("position_z")]
+        [Column(Name = "position_z")]
         public float PositionZ { get; set; }
+        [Column]
         public int Map { get; set; }
+        [Column]
         public float Orientation { get; set; }
+        [Column]
         public string TaxiMask { get; set; }
-        [Column("explored_areas")]
+        [Column(Name = "explored_areas")]
         public string ExploredAreas { get; set; }
+        [PrimaryKey]
         public int Online { get; set; }
+        [Column]
         public int TotalTime { get; set; }
+        [Column]
         public int LevelTime { get; set; }
-        [Column("extra_flags")]
+        [Column(Name = "extra_flags")]
         public int ExtraFlags { get; set; }
+        [Column]
         public int Zone { get; set; }
-        [Column("taxi_path")]
+        [Column(Name = "taxi_path")]
         public string TaxiPath { get; set; }
+        [Column]
         public int Drunk { get; set; }
+        [Column]
         public int Health { get; set; }
+        [Column]
         public int Power1 { get; set; }
+        [Column]
         public int Power2 { get; set; }
+        [Column]
         public int Power3 { get; set; }
+        [Column]
         public int Power4 { get; set; }
+        [Column]
         public int Power5 { get; set; }
     }
 
-    [Table("character_buttons")]
+    [Table(Name = "character_buttons")]
     internal class CharacterButton
     {
+        public const string TABLENAME = "character_buttons";
+
         public int Owner { get; set; }
         public int Index { get; set; }
         public int Action { get; set; }
     }
 
-    [Table("character_deathbind")]
+    [Table(Name = "character_deathbind")]
     internal class CharacterDeathbind
     {
-        [Column("deathbind_id")]
+        public const string TABLENAME = "character_deathbind";
+
+        [Column(Name ="deathbind_id")]
         public int ID { get; set; }
-        [Column("player_guid")]
+        [Column(Name ="player_guid")]
         public int PlayerGUID { get; set; }
-        [Column("creature_binder_guid")]
+        [Column(Name ="creature_binder_guid")]
         public int CreatureBinderGUID { get; set; }
-        [Column("deathbind_map")]
+        [Column(Name ="deathbind_map")]
         public int DeathbindMap { get; set; }
-        [Column("deathbind_zone")]
+        [Column(Name ="deathbind_zone")]
         public int DeathbindZone { get; set; }
-        [Column("deathbind_position_x")]
+        [Column(Name ="deathbind_position_x")]
         public float DeathbindPositionX { get; set; }
-        [Column("deathbind_position_y")]
+        [Column(Name ="deathbind_position_y")]
         public float DeathbindPositionY { get; set; }
-        [Column("deathbind_position_z")]
+        [Column(Name ="deathbind_position_z")]
         public float DeathbindPositionZ { get; set; }
     }
 
-    [Table("character_gifts")]
+    [Table(Name = "character_gifts")]
     internal class CharacterGifts
     {
 
     }
 
-    [Table("character_inventory")]
+    [Table(Name = "character_inventory")]
     internal class CharacterInventory
     {
 
     }
 
-    [Table("character_pets")]
+    [Table(Name = "character_pets")]
     internal class CharacterPet
     {
 
     }
 
-    [Table("character_pet_spells")]
+    [Table(Name = "character_pet_spells")]
     internal class CharacterPetSpell
     {
 
     }
 
-    [Table("character_quest_state")]
+    [Table(Name = "character_quest_state")]
     internal class CharacterQuestState
     {
 
     }
 
-    [Table("character_reputation")]
+    [Table(Name = "character_reputation")]
     internal class CharacterReputation
     {
-        
+
     }
 
-    [Table("character_skills")]
+    [Table(Name = "character_skills")]
     internal class CharacterSkill
     {
 
     }
 
-    [Table("character_social")]
+    [Table(Name = "character_social")]
     internal class CharacterSocial
     {
 
     }
 
-    [Table("character_spells")]
+    [Table(Name = "character_spells")]
     internal class CharacterSpell
     {
 
     }
 
-    [Table("character_spell_book")]
+    [Table(Name = "character_spell_book")]
     internal class CharacterSpellBook
     {
 
     }
 
-    [Table("character_spell_cooldown")]
+    [Table(Name = "character_spell_cooldown")]
     internal class CharacterSpellCooldown
     {
 
     }
 
-    [Table("group")]
+    [Table(Name = "group")]
     internal class Group
     {
 
     }
 
-    [Table("group_member")]
+    [Table(Name = "group_member")]
     internal class GroupMember
     {
 
     }
 
-    [Table("guild")]
+    [Table(Name = "guild")]
     internal class Guild
     {
 
     }
 
-    [Table("guild_member")]
+    [Table(Name = "guild_member")]
     internal class GuildMember
     {
 
     }
 
-    [Table("petition")]
+    [Table(Name = "petition")]
     internal class Petition
     {
 
     }
 
-    [Table("petition_sign")]
+    [Table(Name = "petition_sign")]
     internal class PetitionSign
     {
 
     }
 
-    [Table("tickets")]
+    [Table(Name = "tickets")]
     internal class Ticket
     {
 

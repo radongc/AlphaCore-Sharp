@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AlphaCore_Sharp.Database.Realm.Models;
 using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
 
 namespace AlphaCore_Sharp.Database.Realm
@@ -25,22 +21,25 @@ namespace AlphaCore_Sharp.Database.Realm
     {
         public static void InitializeRealmDatabase()
         {
-            using (RealmModels models = new RealmModels())
-            {
-                // Best solution so far to first query of table taking extra time. However, this makes first query happen on startup, making startup take longer.
-                models.Accounts.FirstOrDefault();
-                models.Characters.FirstOrDefault();
-                models.CharacterButtons.FirstOrDefault();
-            }
         }
 
         // ** Account ** //
 
         public static AccountInfo AccountTryLogin(string username, string password)
         {
-            using (RealmModels models = new RealmModels())
+            /*MySqlConnection models = RealmModels.GetRealmConnection();
+            models.Open();
+
+            Account account = models.Query<Account>($"SELECT * FROM accounts WHERE name=\"{username}\"").FirstOrDefault();
+            models.Close();*/
+
+            using (RealmModels db = new RealmModels())
             {
-                Account account = models.Accounts.Where(acc => acc.Name == username).FirstOrDefault();
+                Account account = ((Account)(from acc in db.Accounts
+                            where acc.Name.Equals(username)
+                            select acc));
+
+
                 if (account == null)
                     return new AccountInfo(null, LoginStatus.UNKNOWN_ACCOUNT);
                 else
@@ -55,24 +54,29 @@ namespace AlphaCore_Sharp.Database.Realm
 
         public static List<Character> AccountGetCharacters(int accountId)
         {
-            using (RealmModels models = new RealmModels())
-            {
-                List<Character> chars = models.Characters.Where(ch => ch.Account == accountId).ToList();
+            /*MySqlConnection models = RealmModels.GetRealmConnection();
+            models.Open();
 
-                return chars ?? new List<Character> { };
-            }
+            List<Character> chars = models.Query<Character>($"SELECT * FROM characters WHERE account = {accountId}").ToList();
+            models.Close();
+
+            return chars ?? new List<Character> { };*/
+            return new List<Character> { };
         }
 
         // ** Character ** //
 
         public static int CharacterGetOnlineCount()
         {
-            using (RealmModels models = new RealmModels())
-            {
-                int onlineCount = models.Characters.Where(c => c.Online == 1).ToList().Count();
+            return 0;
+/*
+            MySqlConnection models = RealmModels.GetRealmConnection();
+            models.Open();
 
-                return onlineCount;
-            }
+            int onlineCount = models.Query<Character>($"SELECT * FROM {Character.TABLENAME} WHERE online = 1").ToList().Count();
+            models.Close();
+
+            return onlineCount;*/
         }
     }
 }

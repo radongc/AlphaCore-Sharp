@@ -35,11 +35,8 @@ namespace AlphaCore_Sharp
                 RealmManager.RealmSocketSession.StartProxyThread();
                 Logger.Success($"Realm Proxy listening on {Globals.Realm.SERVER_IP} port {Globals.Realm.REALM_PORT}/{Globals.Realm.PROXY_PORT}\n");
 
-                // TODO: Database (DBC, World) initialization, data loading and mapping.
-                RealmDatabaseManager.InitializeRealmDatabase();
-
                 // Load game data (mostly DBC and World db's).
-                WorldLoader.LoadData();
+                //WorldLoader.LoadData();
 
                 // Open world server connections.
                 WorldManager.WorldSocketSession.StartConnectionThread();
@@ -50,6 +47,9 @@ namespace AlphaCore_Sharp
 
                 // Setup packet handlers.
                 HandlerDefinitions.InitializePacketHandlers();
+
+                // Workaround AOT...
+                Func<LinqToDB.DataProvider.MySql.MySqlProviderAdapter, MySql.Data.MySqlClient.MySqlDbType> function;
             }
             else
             {

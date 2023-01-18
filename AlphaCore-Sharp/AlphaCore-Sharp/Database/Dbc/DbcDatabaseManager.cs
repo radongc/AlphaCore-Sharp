@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AlphaCore_Sharp.Database.Dbc.Models;
+using Dapper;
+using MySqlConnector;
 
 namespace AlphaCore_Sharp.Database.Dbc
 {
@@ -22,10 +25,13 @@ namespace AlphaCore_Sharp.Database.Dbc
 
         public static List<SkillLine> SkillLineGetAll()
         {
-            using (DbcModels models = new DbcModels()) 
-            {
-                return models.SkillLines.ToList();
-            }
+            MySqlConnection models = DbcModels.GetDbcConnection();
+            models.Open();
+
+            List<SkillLine> skills = models.Query<SkillLine>($"SELECT * FROM {SkillLine.TABLENAME}").ToList();
+            models.Close();
+
+            return skills;
         }
     }
 }

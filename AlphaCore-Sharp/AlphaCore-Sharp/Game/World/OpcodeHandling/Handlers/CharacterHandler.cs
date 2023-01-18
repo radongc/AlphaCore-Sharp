@@ -1,4 +1,5 @@
 ﻿using AlphaCore_Sharp.Database.Realm;
+using AlphaCore_Sharp.Database.Realm.Models;
 using AlphaCore_Sharp.Network.Packet;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 

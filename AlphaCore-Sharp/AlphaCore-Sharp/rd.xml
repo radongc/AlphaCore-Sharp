@@ -1,0 +1,91 @@
+<Directives>
+    <Application>
+        <Assembly Name="System.Data.SqlClient">
+            <Type Name="System.Data.SqlClient.SqlCommandBuilder" Dynamic="Required All" />
+            <Type Name="System.Data.SqlClient.SqlBulkCopy" Dynamic="Required All" />
+            <Type Name="System.Data.SqlClient.SqlConnection" Dynamic="Required All" />
+            <Type Name="System.Data.SqlClient.SqlBulkCopyOptions" Dynamic="Required All" />
+            <Type Name="System.Data.SqlClient.SqlBulkCopyOptions[]" Dynamic="Required All" />
+        </Assembly>
+        <Assembly Name="System.Configuration.ConfigurationManager">
+            <Type Name="System.Configuration.ClientConfigurationHost" Dynamic="Required All" />
+            <Type Name="System.Configuration.AppSettingsSection" Dynamic="Required All" />
+        </Assembly>
+		<Assembly Name="System.Runtime">
+            <Type Name="System.GC" Dynamic="Required All" />
+            <Type Name="System.Enum" Dynamic="Required All" />
+            <Type Name="System.Func`2[[LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopyOptions,linq2db],[System.Data.SqlClient.SqlBulkCopyOptions,System.Data.SqlClient]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[LinqToDB.DataProvider.MySql.MySqlProviderAdapter+MySqlData+MySqlDbType,linq2db],[MySql.Data.MySqlClient.MySqlDbType,MySql.Data]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[MySql.Data.MySqlClient.MySqlDbType,MySql.Data],[LinqToDB.DataProvider.MySql.MySqlProviderAdapter+MySqlData+MySqlDbType,linq2db]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[System.Data.SqlClient.SqlBulkCopyOptions,System.Data.SqlClient],[LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopyOptions,linq2db]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[System.Int32,System.Private.CoreLib],[System.Nullable`1[[System.Int32,System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[MySql.Data.Types.MySqlDecimal,MySql.Data],[System.Decimal, System.Runtime]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[MySql.Data.Types.MySqlDecimal,MySql.Data],[System.Double, System.Runtime]]" Dynamic="Required All" />
+            <Type Name="System.Func`2[[MySql.Data.Types.MySqlDateTime,MySql.Data],[System.DateTime, System.Runtime]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[MySql.Data.MySqlClient.MySqlDataReader,MySql.Data],System.Int32,[MySql.Data.Types.MySqlDecimal,MySql.Data]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[MySql.Data.MySqlClient.MySqlDataReader,MySql.Data],System.Int32,[MySql.Data.Types.MySqlDateTime,MySql.Data]]" Dynamic="Required All" />
+			
+			
+            <Type Name="System.Func`4[[System.Data.IDbConnection,System.Data.Common],[System.Data.SqlClient.SqlBulkCopyOptions,System.Data.SqlClient],[System.Data.IDbTransaction,System.Data.Common],[System.Data.SqlClient.SqlBulkCopy,System.Data.SqlClient]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlBinary,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlBoolean,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlDateTime,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlByte,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlDecimal,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlDouble,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlGuid,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlInt16,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlInt32,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlInt64,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlMoney,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlSingle,System.Data.Common]]" Dynamic="Required All" />
+            <Type Name="System.Func`3[[System.Data.SqlClient.SqlDataReader,System.Data.SqlClient],[System.Int32,System.Private.CoreLib],[System.Data.SqlTypes.SqlString,System.Data.Common]]" Dynamic="Required All" />
+        </Assembly>
+        <Assembly Name="linq2db">
+			<Type Name="LinqToDB.DataProvider.MySql.MySqlProviderAdapter" Dynamic="Required All" />
+			<Type Name="LinqToDB.DataProvider.MySql.MySqlProviderAdapter+MySqlData+MySqlDbType" Dynamic="Required All" />
+			
+			<Type Name="LinqToDB.Reflection.Methods" Dynamic="Required All" />
+			<Type Name="LinqToDB.Reflection.Methods+LinqToDB" Dynamic="Required All" />
+			<Type Name="LinqToDB.Reflection.Methods+LinqToDB+SqlExt" Dynamic="Required All" />
+			
+			<Type Name="LinqToDB.Expressions.MemberHelper" Dynamic="Required All" />
+			
+			<Type Name="LinqToDB.DataProvider.MySql.MySqlProviderAdapter+MySqlData+MySqlDbType" Dynamic="Required All" />
+			<Type Name="LinqToDB.DataProvider.MySql.MySqlProviderAdapter+MySqlData+MySqlDbType[]" Dynamic="Required All" />
+			<Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopyOptions" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopyOptions[]" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlConnection" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlErrorCollection" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlException" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlError" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlConnectionStringBuilder" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopy" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlBulkCopyColumnMappingCollection" Dynamic="Required All" />
+            <Type Name="LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter+SqlRowsCopiedEventArgs" Dynamic="Required All" />
+            <Type Name="LinqToDB.Data.DataParameter" Dynamic="Required All" />
+        </Assembly>
+		<Assembly Name="MySQL.Data">
+			<Type Name="MySql.Data.MySqlClient.MySqlConnection" Dynamic="Required All" />
+			<Type Name="MySql.Data.MySqlClient.MySqlDataReader" Dynamic="Required All" />
+			<Type Name="MySql.Data.MySqlClient.MySqlParameter" Dynamic="Required All" />
+			<Type Name="MySql.Data.MySqlClient.MySqlCommand" Dynamic="Required All" />
+			<Type Name="MySql.Data.MySqlClient.MySqlTransaction" Dynamic="Required All" />
+			<Type Name="MySql.Data.MySqlClient.MySqlDbType" Dynamic="Required All" />
+			<Type Name="MySql.Data.Types.MySqlDecimal" Dynamic="Required All" />
+			<Type Name="MySql.Data.Types.MySqlDateTime" Dynamic="Required All" />
+			<Type Name="MySql.Data.Types.MySqlGeometry" Dynamic="Required All" />
+		</Assembly>
+        <Assembly Name="System.Private.Xml">
+        </Assembly>
+        <Assembly Name="System.Threading.ThreadPool">
+            <Type Name="System.Threading.ThreadPool" Dynamic="Required All" />
+        </Assembly>
+        <Assembly Name="System.Threading">
+            <Type Name="System.Threading.Monitor" Dynamic="Required All" />
+        </Assembly>
+		<Assembly Name="System.Reflection">
+			<Type Name="System.Reflection.MethodInfo" Dynamic="Required All" />
+		</Assembly>
+    </Application>
+</Directives>

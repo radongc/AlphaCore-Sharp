@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "NquRrAFC24gq0/IKoFEkAMH8kUYkb/yXqddlOh4b+10FvbJQCQaYd3mTil0RF5Nw+cuq3myILS5nRRkCSw/mng==",
+  "dgSpecHash": "NpEdKAJwnYmc6qaZhbyKFwoI6lE05AIQiVUVx3oCK4HcEgT0YJoOp2sqV6AA16y8xqBoHb0X7+CxU26TRdfRrw==",
   "success": true,
   "projectFilePath": "C:\\repos\\AlphaCore-Sharp\\AlphaCore-Sharp\\AlphaCore-Sharp\\AlphaCore-Sharp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\peter\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\peter\\.nuget\\packages\\linq2db\\4.4.0\\linq2db.4.4.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.7\\microsoft.entityframeworkcore.6.0.7.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.7\\microsoft.entityframeworkcore.abstractions.6.0.7.nupkg.sha512",
@@ -41,7 +43,11 @@
     "C:\\Users\\peter\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.7.0\\system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
-    "C:\\Users\\peter\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\peter\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\peter\\.nuget\\packages\\runtime.win-x64.microsoft.dotnet.ilcompiler\\7.0.0\\runtime.win-x64.microsoft.dotnet.ilcompiler.7.0.0.nupkg.sha512",
+    "C:\\Users\\peter\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.0\\microsoft.aspnetcore.app.runtime.win-x64.7.0.0.nupkg.sha512",
+    "C:\\Users\\peter\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.0\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.0.nupkg.sha512",
+    "C:\\Users\\peter\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.0\\microsoft.netcore.app.runtime.win-x64.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
