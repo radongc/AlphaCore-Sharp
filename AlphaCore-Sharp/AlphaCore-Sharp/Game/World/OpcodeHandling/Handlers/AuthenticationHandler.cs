@@ -63,6 +63,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             responsePacket += (byte)authResult;
 
             // Send response packet to client and return the result to WorldManager.OnData().
+            // We do not use EnqueuePacket here because the queue has not been initialized at this point.
             worldSession.Send(responsePacket);
             return result;
         }

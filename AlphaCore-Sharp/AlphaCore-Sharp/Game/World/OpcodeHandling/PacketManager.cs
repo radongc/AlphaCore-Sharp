@@ -33,10 +33,9 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
             }
             else
             {
-                // Return false and kill socket connection if OpCode unhandled (for now).
                 byte[] opcodeArray = {(byte)opcode};
 
-                Logger.Error($"Unhandled Opcode: {opcode} - ID 0x{Convert.ToHexString(opcodeArray)}, {(byte)opcode}");
+                Logger.Warning($"Unhandled Opcode: {opcode} - ID 0x{Convert.ToHexString(opcodeArray)}, {(byte)opcode}");
                 return true;
             }
         }

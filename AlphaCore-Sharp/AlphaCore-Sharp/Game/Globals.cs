@@ -29,6 +29,14 @@ namespace AlphaCore_Sharp.Game
             public const string REALM_NAME = "|c0000FF00AlphaCore Sharp";
         }
 
+        internal class World
+        {
+            internal class Gameplay
+            {
+                public const float GAME_SPEED = 0.016666668f;
+            }
+        }
+
         internal class Logging
         {
             /*  

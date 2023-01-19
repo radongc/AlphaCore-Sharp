@@ -13,7 +13,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             pongPacket += packet.ReadUInt32();
 
             result = true;
-            worldSession.Send(pongPacket);
+            worldSession.EnqueuePacket(pongPacket);
 
             return result;
         }

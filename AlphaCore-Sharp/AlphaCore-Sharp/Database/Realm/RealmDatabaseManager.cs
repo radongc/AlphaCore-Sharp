@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
+using static AlphaCore_Sharp.Utils.Constants.MiscCodes;
 
 namespace AlphaCore_Sharp.Database.Realm
 {
@@ -72,6 +73,16 @@ namespace AlphaCore_Sharp.Database.Realm
                 int onlineCount = models.Characters.Where(c => c.Online == 1).ToList().Count();
 
                 return onlineCount;
+            }
+        }
+
+        public static Character CharacterGetByGUID(ulong guid)
+        {
+            using (RealmModels models = new RealmModels())
+            {
+                Character character = models.Characters.Where(c => c.GUID == (guid & (~(ulong)HighGuid.HIGHGUID_PLAYER))).FirstOrDefault();
+
+                return character;
             }
         }
     }

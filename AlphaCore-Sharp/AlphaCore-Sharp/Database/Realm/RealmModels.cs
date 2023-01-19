@@ -98,7 +98,7 @@ namespace AlphaCore_Sharp.Database.Realm
     [Table("characters")]
     internal class Character
     {
-        public int GUID { get; set; }
+        public ulong GUID { get; set; }
         public int Account { get; set; }
         public string Name { get; set; }
         public int Race { get; set; }
