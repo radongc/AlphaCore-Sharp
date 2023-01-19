@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AlphaCore_Sharp.Database.Dbc
+﻿namespace AlphaCore_Sharp.Database.Dbc
 {
     // TODO: Add comments explaining this class.
     internal class DbcDatabaseManager

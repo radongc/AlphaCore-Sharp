@@ -5,10 +5,7 @@ using AlphaCore_Sharp.Game;
 using AlphaCore_Sharp.Game.Realm;
 using AlphaCore_Sharp.Game.World;
 using AlphaCore_Sharp.Game.World.OpcodeHandling;
-using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
-using AlphaCore_Sharp.Utils.Constants;
-using System.Net;
 
 // AlphaCore# (Sharp)
 // WoW 0.5.3 3368 Emulator. Boilerplate socket/network implementation based closely on Barncastle's Alpha-WoW, the rest of emulator based closely on The-Alpha-Project/alpha-core.

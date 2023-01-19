@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
+﻿using static AlphaCore_Sharp.Utils.Constants.CustomCodes;
 using static AlphaCore_Sharp.Utils.Constants.MiscCodes;
 
 namespace AlphaCore_Sharp.Database.Realm

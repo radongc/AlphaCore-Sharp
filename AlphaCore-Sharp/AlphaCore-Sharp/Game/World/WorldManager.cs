@@ -2,17 +2,8 @@
 using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
-using ICSharpCode.SharpZipLib.Zip;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Game.World

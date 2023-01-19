@@ -1,14 +1,9 @@
 ﻿using AlphaCore_Sharp.Database.Realm;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlphaCore_Sharp.Game.Realm
+namespace AlphaCore_Sharp.Game.Realm 
 {
     // RealmManager
     // Based on Alpha-WoW's RealmManager class.

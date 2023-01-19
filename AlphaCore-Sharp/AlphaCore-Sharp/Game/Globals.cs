@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AlphaCore_Sharp.Game
+﻿namespace AlphaCore_Sharp.Game
 {
     // TODO: Move all of this to a config file outside the core code base.
     internal class Globals
