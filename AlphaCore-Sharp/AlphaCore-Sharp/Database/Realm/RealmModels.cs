@@ -62,6 +62,7 @@ namespace AlphaCore_Sharp.Database.Realm
     // Keys named 'ID' do not need to be marked by FluentAPI (in OnModelCreating); otherwise they must be marked.
 
     // TODO: Possibly rewrite this, we don't want to have the account Model be the same object as the account manager.
+    // Probably put password methods in RealmDatabaseManager.
     [Table("accounts")]
     internal class Account
     {

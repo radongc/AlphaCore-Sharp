@@ -9,6 +9,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
         {
             bool result = false;
 
+            // Create pong packet and send back what client sent. It just needs *a* response.
             PacketWriter pongPacket = new PacketWriter(OpCode.SMSG_PONG);
             pongPacket += packet.ReadUInt32();
 
