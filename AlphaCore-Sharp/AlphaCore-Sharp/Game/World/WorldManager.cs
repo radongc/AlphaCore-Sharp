@@ -36,12 +36,15 @@ namespace AlphaCore_Sharp.Game.World
         {
             try
             {
+                // Packet processing and other loops execute while _keepAlive is true.
                 _keepAlive = true;
 
+                // Perform initial auth exchange.
                 if (AuthChallenge())
                 {
                     Socket.ReceiveTimeout = 0;
 
+                    // Initialize packet queues.
                     _outgoingPending = new BlockingCollection<PacketWriter>();
                     _incomingPending = new BlockingCollection<PacketReader>();
 
@@ -66,6 +69,7 @@ namespace AlphaCore_Sharp.Game.World
             Thread.Sleep(1);
             if (Socket.Connected && Socket.Available > 0)
             {
+                // Receive data from client.
                 buffer = new byte[Socket.Available];
                 Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
@@ -78,6 +82,7 @@ namespace AlphaCore_Sharp.Game.World
                 else
                     Logger.Debug($"Unknown data received: {pkt.Opcode}, Length: {pkt.Size}");
 
+                // Add packet to incoming queue.
                 if (pkt != null)
                     _incomingPending.Add(pkt);
                 else
@@ -89,6 +94,7 @@ namespace AlphaCore_Sharp.Game.World
 
         public void EnqueuePacket(PacketWriter packet)
         {
+            // Add packet to outgoing queue.
             if (_keepAlive)
                 _outgoingPending.Add(packet);
         }
@@ -99,6 +105,7 @@ namespace AlphaCore_Sharp.Game.World
             {
                 try
                 {
+                    // Get next packet from queue and send.
                     PacketWriter packet = _outgoingPending.Take();
 
                     if (packet != null)
@@ -120,6 +127,7 @@ namespace AlphaCore_Sharp.Game.World
             {
                 while (_keepAlive)
                 {
+                    // Get next incoming packet from queue.
                     PacketReader packet = _incomingPending.Take();
 
                     if (packet != null && _keepAlive)
@@ -129,6 +137,7 @@ namespace AlphaCore_Sharp.Game.World
                             // Invoke the handler for this packet.
                             bool handlerResult = PacketManager.Invoke(packet, this, packet.Opcode);
                             
+                            // Disconnect if handler returns bad result.
                             if (!handlerResult)
                                 break;
                         }
@@ -145,7 +154,7 @@ namespace AlphaCore_Sharp.Game.World
         }
 
         // Send packet directly.
-        public void Send(PacketWriter packet, bool suppressLog = false)
+        public void Send(PacketWriter packet)
         {
             if (packet == null)
                 return;
@@ -158,10 +167,7 @@ namespace AlphaCore_Sharp.Game.World
                 // Try to send the raw packet bytes.
                 Socket.Send(buffer, 0, buffer.Length, SocketFlags.None);
 
-                if (!suppressLog)
-                {
-                    Logger.Debug($"Sending {packet.Opcode}");
-                }
+                Logger.Debug($"Sending {packet.Opcode}");
             }
             catch (Exception ex)
             {
@@ -188,6 +194,7 @@ namespace AlphaCore_Sharp.Game.World
 
                 bool keepAliveAuth = true;
                 
+                // Start temporary receive loop before authentication is complete, end session if any other packets are received.
                 while (keepAliveAuth)
                 {
                     if (Socket.Connected && Socket.Available > 0)
