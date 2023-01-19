@@ -2,6 +2,7 @@
 using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
+using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -185,19 +186,26 @@ namespace AlphaCore_Sharp.Game.World
                 challengePkt += 0;
                 Send(challengePkt);
 
-                if (Socket.Connected && Socket.Available > 0)
+                bool keepAliveAuth = true;
+                
+                while (keepAliveAuth)
                 {
-                    Socket.ReceiveTimeout = 10000;
-                    buffer = new byte[Socket.Available];
-                    Socket.Receive(buffer, buffer.Length, SocketFlags.None);
-
-                    PacketReader pkt = new PacketReader(buffer);
-
-                    if (pkt.Opcode == OpCode.CMSG_AUTH_SESSION)
+                    if (Socket.Connected && Socket.Available > 0)
                     {
-                        bool handlerResult = PacketManager.Invoke(pkt, this, pkt.Opcode);
+                        Socket.ReceiveTimeout = 10000;
+                        buffer = new byte[Socket.Available];
+                        Socket.Receive(buffer, buffer.Length, SocketFlags.None);
 
-                        return handlerResult;
+                        PacketReader pkt = new PacketReader(buffer);
+
+                        if (pkt.Opcode == OpCode.CMSG_AUTH_SESSION)
+                        {
+                            keepAliveAuth = false;
+
+                            bool handlerResult = PacketManager.Invoke(pkt, this, pkt.Opcode);
+
+                            return handlerResult;
+                        }
                     }
                 }
             }
@@ -207,7 +215,7 @@ namespace AlphaCore_Sharp.Game.World
                 return false;
             }
 
-            return true;
+            return false;
         }
 
         public void CloseSocket()
