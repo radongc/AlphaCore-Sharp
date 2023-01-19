@@ -155,7 +155,7 @@ namespace AlphaCore_Sharp.Game.World
 
             try
             {
-                // Try to asynchronously send the raw packet bytes.
+                // Try to send the raw packet bytes.
                 Socket.Send(buffer, 0, buffer.Length, SocketFlags.None);
 
                 if (!suppressLog)
@@ -178,12 +178,12 @@ namespace AlphaCore_Sharp.Game.World
             {
                 // Send AUTH_CHALLENGE packet before anything else. SMSG_AUTH_CHALLENGE contains 6 zeros.
                 PacketWriter challengePkt = new PacketWriter(OpCode.SMSG_AUTH_CHALLENGE);
-                challengePkt += 0;
-                challengePkt += 0;
-                challengePkt += 0;
-                challengePkt += 0;
-                challengePkt += 0;
-                challengePkt += 0;
+                challengePkt += (byte)0;
+                challengePkt += (byte)0;
+                challengePkt += (byte)0;
+                challengePkt += (byte)0;
+                challengePkt += (byte)0;
+                challengePkt += (byte)0;
                 Send(challengePkt);
 
                 bool keepAliveAuth = true;

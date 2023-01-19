@@ -67,9 +67,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return data;
         }
 
-        public void WriteInt8(sbyte data)
+        public PacketWriter WriteInt8(sbyte data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteInt8
@@ -82,9 +83,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteInt16(short data)
+        public PacketWriter WriteInt16(short data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteInt16
@@ -97,9 +99,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteInt32(int data)
+        public PacketWriter WriteInt32(int data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteInt32
@@ -112,9 +115,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteInt64(long data)
+        public PacketWriter WriteInt64(long data)
         {
             base.Write(data);
+            return this;
         }
 
 
@@ -128,9 +132,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteUInt8(byte data)
+        public PacketWriter WriteUInt8(byte data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteUInt8
@@ -143,9 +148,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteUInt16(ushort data)
+        public PacketWriter WriteUInt16(ushort data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteUInt16
@@ -158,9 +164,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteUInt32(uint data)
+        public PacketWriter WriteUInt32(uint data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteUInt32
@@ -173,9 +180,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteUInt64(ulong data)
+        public PacketWriter WriteUInt64(ulong data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteUInt64
@@ -188,9 +196,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteFloat(float data)
+        public PacketWriter WriteFloat(float data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteFloat
@@ -203,9 +212,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteDouble(double data)
+        public PacketWriter WriteDouble(double data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteDouble
@@ -218,11 +228,12 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteString(string data)
+        public PacketWriter WriteString(string data)
         {
             byte[] sBytes = Encoding.ASCII.GetBytes(data);
             this.WriteBytes(sBytes);
             base.Write((byte)0);    // String null terminated
+            return this;
         }
 
         // WriteString
@@ -237,9 +248,10 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
-        public void WriteBytes(byte[] data)
+        public PacketWriter WriteBytes(byte[] data)
         {
             base.Write(data);
+            return this;
         }
 
         // WriteBytes

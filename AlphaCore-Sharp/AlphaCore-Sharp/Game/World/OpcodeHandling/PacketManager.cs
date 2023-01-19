@@ -37,7 +37,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
                 byte[] opcodeArray = {(byte)opcode};
 
                 Logger.Error($"Unhandled Opcode: {opcode} - ID 0x{Convert.ToHexString(opcodeArray)}, {(byte)opcode}");
-                return false;
+                return true;
             }
         }
     }
