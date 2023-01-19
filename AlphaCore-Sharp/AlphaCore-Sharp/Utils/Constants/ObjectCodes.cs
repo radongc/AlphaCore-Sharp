@@ -21,5 +21,14 @@ namespace AlphaCore_Sharp.Utils.Constants
             TYPE_AIGROUP = 256,
             TYPE_AREATRIGGER = 512
         }
+
+        public enum UpdateTypes
+        {
+            UPDATE_PARTIAL = 0,
+            UPDATE_MOVEMENT = 1,
+            UPDATE_FULL = 2,
+            UPDATE_OUT_OF_RANGE = 3,
+            UPDATE_IN_RANGE = 4
+        }
     }
 }

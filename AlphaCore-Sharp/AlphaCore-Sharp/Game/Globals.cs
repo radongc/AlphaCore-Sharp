@@ -37,6 +37,14 @@ namespace AlphaCore_Sharp.Game
             }
         }
 
+        internal class Unit
+        {
+            public const float BOUNDING_RADIUS = 0.388999998569489f;
+            public const float COMBAT_REACH = 1.5f;
+            public const int BASE_ATTACK_TIME = 2000;
+            public const int OFFHAND_ATTACK_TIME = 1000;
+        }
+
         internal class Logging
         {
             /*  

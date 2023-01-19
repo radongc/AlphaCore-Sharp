@@ -29,6 +29,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             return result;
         }
 
+        // TODO: Finish and refactor this handler and add comments.
         public static bool HandlePlayerLogin(ref PacketReader packet, ref WorldManager worldSession)
         {
             // Get GUID.
