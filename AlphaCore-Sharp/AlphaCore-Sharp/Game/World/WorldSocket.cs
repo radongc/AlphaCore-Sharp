@@ -47,7 +47,7 @@ namespace AlphaCore_Sharp.Game.World
                     world.Socket = _worldListener.AcceptSocket();
 
                     // Start a new thread and begin main world packet receiving loop.
-                    Thread recvThread = new Thread(world.Receive);
+                    Thread recvThread = new Thread(world.HandleSession);
                     recvThread.Start();
                 }
             }
