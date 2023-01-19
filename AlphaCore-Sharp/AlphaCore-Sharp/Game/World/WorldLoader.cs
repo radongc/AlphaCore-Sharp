@@ -10,7 +10,6 @@ namespace AlphaCore_Sharp.Game.World
 {
     internal class WorldLoader
     {
-        // TODO: Add comments explaining this class.
         public static void LoadData()
         {
             LoadSkills();
@@ -18,12 +17,14 @@ namespace AlphaCore_Sharp.Game.World
 
         public static void LoadSkills()
         {
+            // Get all skills.
             List<SkillLine> skills = DbcDatabaseManager.SkillLineGetAll();
             int length = skills.Count;
             int count = 0;
 
             foreach (SkillLine skill in skills)
             {
+                // Load each skill into memory.
                 DbcDatabaseManager.SkillHolder.LoadSkill(skill);
 
                 count++;

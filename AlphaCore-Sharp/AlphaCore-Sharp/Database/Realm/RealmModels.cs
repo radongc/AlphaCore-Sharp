@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 
-// TODO: Investigate replacing EF Core with Dapper.
-// EF Core does not work with Native AOT. Supposedly, that will be a part of EF Core 8.0
-// Also supposedly, Dapper does work with Native AOT.
+// Answer to previous TODO: It seems most or all of the major ORM pkg's do not support native AOT. Tried extensively and failed with Dapper, Linq2DB, EF, etc.
 namespace AlphaCore_Sharp.Database.Realm
 {
     internal class RealmModels : DbContext

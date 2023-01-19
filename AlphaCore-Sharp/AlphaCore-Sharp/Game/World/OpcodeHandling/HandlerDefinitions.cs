@@ -10,9 +10,9 @@ using static AlphaCore_Sharp.Game.World.OpcodeHandling.PacketManager;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling
 {
-    // TODO: Finish character enum packet (pet and gear info).
     internal class HandlerDefinitions
     {
+        // TODO: Consider creating a separate file/class for each handler, rather than grouping them together.
         public static void InitializePacketHandlers()
         {
             // Authentication OpCodes.

@@ -25,7 +25,6 @@ namespace AlphaCore_Sharp
 
             Logger.PrintLogSettings();
 
-            // TODO: Review boilerplate socket code and make recommended changes (to start off, we are nearly 1:1 with Alpha-WoW's base server code.)
             RealmManager.RealmSocketSession = new RealmSocket();
             WorldManager.WorldSocketSession = new WorldSocket();
             if (WorldManager.WorldSocketSession.Start() && RealmManager.RealmSocketSession.Start())
@@ -64,6 +63,3 @@ namespace AlphaCore_Sharp
         }
     }
 }
-
-// TODO: Review ORM (EF) and see if one can be found that supports Native AOT.
-// TODO: Start loading data from database.
