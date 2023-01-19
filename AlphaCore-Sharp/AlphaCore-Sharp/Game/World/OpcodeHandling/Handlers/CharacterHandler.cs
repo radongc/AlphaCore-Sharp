@@ -1,5 +1,6 @@
 ﻿using AlphaCore_Sharp.Database.Realm;
 using AlphaCore_Sharp.Network.Packet;
+using AlphaCore_Sharp.Utils;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
@@ -12,7 +13,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             bool result = false;
 
             // Get character list for account.
-            var chars = RealmDatabaseManager.AccountGetCharacters(worldSession.Account.Id);
+            List<Character> chars = RealmDatabaseManager.AccountGetCharacters(worldSession.Account.Id);
 
             PacketWriter charPacket = new PacketWriter(OpCode.SMSG_CHAR_ENUM);
             // Write number of characters found.
@@ -23,9 +24,45 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
                 GetCharacterPacket(worldSession, c, ref charPacket);
 
             // Send character packet to client and return success.
-            worldSession.Send(charPacket);
+            worldSession.EnqueuePacket(charPacket);
             result = true;
             return result;
+        }
+
+        public static bool HandlePlayerLogin(ref PacketReader packet, ref WorldManager worldSession)
+        {
+            // Get GUID.
+            ulong guid = packet.ReadUInt64();
+            Character character = RealmDatabaseManager.CharacterGetByGUID(guid);
+
+            if (character == null)
+            {
+                Logger.Anticheat($"Character with wrong guid {guid} tried to login.");
+                return false;
+            }
+
+            PacketWriter timePacket = new PacketWriter(OpCode.SMSG_LOGIN_SETTIMESPEED);
+
+            timePacket += GetSecondsToTimeBitFields();
+            timePacket += Globals.World.Gameplay.GAME_SPEED;
+
+            worldSession.EnqueuePacket(timePacket);
+
+            return true;
+        }
+
+        private static int GetSecondsToTimeBitFields()
+        {
+            DateTime localTime = DateTime.Now;
+
+            int year = localTime.Year - 2000;
+            int month = localTime.Month - 1;
+            int day = localTime.Day - 1;
+            int dayOfWeek = (int)localTime.DayOfWeek;
+            int hour = localTime.Hour;
+            int minute = localTime.Minute;
+
+            return minute | (hour << 6) | (dayOfWeek << 11) | (day << 14) | (month << 20) | (year << 24);
         }
 
         public static void GetCharacterPacket(WorldManager worldSession, Character character, ref PacketWriter characterPacket)

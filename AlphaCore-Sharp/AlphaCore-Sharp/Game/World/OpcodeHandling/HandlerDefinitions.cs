@@ -23,6 +23,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
 
             // Character OpCodes.
             StoreOpCode(OpCode.CMSG_CHAR_ENUM, CharacterHandler.HandleCharEnum);
+            StoreOpCode(OpCode.CMSG_PLAYER_LOGIN, CharacterHandler.HandlePlayerLogin);
         }
     }
 }

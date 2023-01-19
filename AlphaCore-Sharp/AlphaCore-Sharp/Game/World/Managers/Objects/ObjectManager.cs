@@ -12,5 +12,6 @@ namespace AlphaCore_Sharp.Game.World.Managers.Objects
         public ulong GUID { get; set; }
         public int Entry { get; set; }
         public int ObjectType { get; set; }
+
     }
 }
