@@ -18,7 +18,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling
         }
 
         // Invoke the Handler method. Returns a boolean, which may be false if the handler method returned a bad result.
-        public static bool Invoke(PacketReader reader, WorldManager worldSession, OpCode opcode)
+        public static bool Handle(PacketReader reader, WorldManager worldSession, OpCode opcode)
         {
             if (OpcodeHandlers.ContainsKey(opcode))
             {

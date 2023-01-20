@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-// dotnet publish -r win-x64 -c Release in powershell to build (native).
+// dotnet publish -r win-x64 -c Release in powershell to build (native) if PublishAot is true.
 using AlphaCore_Sharp.Database.Realm;
 using AlphaCore_Sharp.Game;
 using AlphaCore_Sharp.Game.Realm;
@@ -8,7 +8,7 @@ using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Utils;
 
 // AlphaCore# (Sharp)
-// WoW 0.5.3 3368 Emulator. Boilerplate socket/network implementation based closely on Barncastle's Alpha-WoW, the rest of emulator based closely on The-Alpha-Project/alpha-core.
+// WoW 0.5.3 3368 Emulator. Boilerplate socket/network implementation based mostly on Barncastle's Alpha-WoW, the rest of emulator based closely on The-Alpha-Project/alpha-core.
 namespace AlphaCore_Sharp
 {
     class WorldServer

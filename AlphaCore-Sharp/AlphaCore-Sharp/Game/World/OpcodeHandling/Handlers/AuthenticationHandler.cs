@@ -29,7 +29,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
 
             // If name and password size is not exactly 2, return unknown account.
             if (nameAndPass.Length != 2)
-                responsePacket += (byte)AuthCode.AUTH_UNKNOWN_ACCOUNT;
+                authResult = AuthCode.AUTH_UNKNOWN_ACCOUNT;
             else
             {
                 string accountName = nameAndPass[0];
@@ -62,7 +62,7 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             // Write result to the response packet.
             responsePacket += (byte)authResult;
 
-            // Send response packet to client and return the result to WorldManager.OnData().
+            // Send response packet to client and return the result to WorldManager.AuthChallenge().
             // We do not use EnqueuePacket here because the queue has not been initialized at this point.
             worldSession.Send(responsePacket);
             return result;

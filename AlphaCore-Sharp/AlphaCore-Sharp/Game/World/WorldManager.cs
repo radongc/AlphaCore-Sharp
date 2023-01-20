@@ -126,7 +126,7 @@ namespace AlphaCore_Sharp.Game.World
                         if (packet.Opcode != null)
                         {
                             // Invoke the handler for this packet.
-                            bool handlerResult = PacketManager.Invoke(packet, this, packet.Opcode);
+                            bool handlerResult = PacketManager.Handle(packet, this, packet.Opcode);
                             
                             // Disconnect if handler returns bad result.
                             if (!handlerResult)
@@ -173,7 +173,7 @@ namespace AlphaCore_Sharp.Game.World
         {
             try
             {
-                // Send AUTH_CHALLENGE packet before anything else. SMSG_AUTH_CHALLENGE contains 6 zeros.
+                // Send AUTH_CHALLENGE packet before anything else.
                 PacketWriter challengePkt = new PacketWriter(OpCode.SMSG_AUTH_CHALLENGE);
                 challengePkt += (byte)0;
                 challengePkt += (byte)0;
@@ -200,7 +200,7 @@ namespace AlphaCore_Sharp.Game.World
                         {
                             keepAliveAuth = false;
 
-                            bool handlerResult = PacketManager.Invoke(pkt, this, pkt.Opcode);
+                            bool handlerResult = PacketManager.Handle(pkt, this, pkt.Opcode);
 
                             return handlerResult;
                         }
