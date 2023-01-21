@@ -1,4 +1,5 @@
 ﻿using AlphaCore_Sharp.Database.Realm;
+using AlphaCore_Sharp.Game.World.Managers.Objects;
 using AlphaCore_Sharp.Game.World.OpcodeHandling;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
@@ -13,6 +14,7 @@ namespace AlphaCore_Sharp.Game.World
         // TODO: Store Character data.
         public ulong Id;
         public Account Account;
+        public PlayerManager Player;
         public Socket Socket;
         public static WorldSocket WorldSocketSession;
 
@@ -139,7 +141,7 @@ namespace AlphaCore_Sharp.Game.World
             }
             catch(Exception e)
             {
-                Logger.Error(e.Message);
+                Logger.Error(e.ToString());
                 CloseSocket();
             }
         }

@@ -1,7 +1,9 @@
 ﻿using AlphaCore_Sharp.Database.Realm;
 using AlphaCore_Sharp.Network.Packet;
 using AlphaCore_Sharp.Utils;
+using AlphaCore_Sharp.Game.World.Managers.Objects;
 using static AlphaCore_Sharp.Utils.Constants.OpCodes;
+using static AlphaCore_Sharp.Utils.Constants.ObjectCodes;
 
 namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
 {
@@ -36,6 +38,8 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             ulong guid = packet.ReadUInt64();
             Character character = RealmDatabaseManager.CharacterGetByGUID(guid);
 
+            worldSession.Player = new PlayerManager(character);
+
             if (character == null)
             {
                 Logger.Anticheat($"Character with wrong guid {guid} tried to login.");
@@ -48,6 +52,15 @@ namespace AlphaCore_Sharp.Game.World.OpcodeHandling.Handlers
             timePacket += Globals.World.Gameplay.GAME_SPEED;
 
             worldSession.EnqueuePacket(timePacket);
+
+            worldSession.EnqueuePacket(worldSession.Player.GetInitialSpells());
+            worldSession.EnqueuePacket(worldSession.Player.GetQueryDetails());
+
+            PacketWriter updatePacket = new PacketWriter(OpCode.SMSG_UPDATE_OBJECT);
+            updatePacket += worldSession.Player.CreateUpdatePacket(UpdateTypes.UPDATE_IN_RANGE) +
+                worldSession.Player.GetUpdatePacket();
+
+            worldSession.EnqueuePacket(updatePacket);
 
             return true;
         }

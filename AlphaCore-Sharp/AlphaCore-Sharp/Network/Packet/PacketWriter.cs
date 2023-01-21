@@ -262,6 +262,25 @@ namespace AlphaCore_Sharp.Network.Packet
             return message;
         }
 
+        // WriteBytes
+        public static PacketWriter operator +(PacketWriter a, List<byte> b)
+        {
+            PacketWriter message = a;
+
+            message.WriteBytes(b.ToArray());
+
+            return message;
+        }
+
+        public static PacketWriter operator +(PacketWriter a, PacketWriter b)
+        {
+            PacketWriter message = a;
+
+            message.WriteBytes(b.ReadDataToSend());
+
+            return message;
+        }
+
         public void Compress()
         {
             if (Opcode != OpCode.SMSG_UPDATE_OBJECT || BaseStream.Length <= 100)
